@@ -37,9 +37,12 @@ public class Card extends javax.swing.JPanel {
 
     public void setData(Model_Card data) {
         lbIcon.setIcon(data.getIcon());
-        lbTitle.setText(data.getTitle());
-        lbValues.setText(data.getValues());
-        lbDescription.setText(data.getDescription());
+        lbId.setText(data.getId());
+        lbName.setText(data.getName());
+        lbGender.setText(data.getGender());
+        lbclassDepartment.setText(data.getDepartment());
+        lbsubject.setText(data.getSubject());
+        lbEmail.setText(data.getEmail());
     }
 
     @SuppressWarnings("unchecked")
@@ -47,23 +50,38 @@ public class Card extends javax.swing.JPanel {
     private void initComponents() {
 
         lbIcon = new javax.swing.JLabel();
-        lbTitle = new javax.swing.JLabel();
-        lbValues = new javax.swing.JLabel();
-        lbDescription = new javax.swing.JLabel();
+        lbId = new javax.swing.JLabel();
+        lbName = new javax.swing.JLabel();
+        lbGender = new javax.swing.JLabel();
+        lbclassDepartment = new javax.swing.JLabel();
+        lbsubject = new javax.swing.JLabel();
+        lbEmail = new javax.swing.JLabel();
 
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/stock.png"))); // NOI18N
 
-        lbTitle.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        lbTitle.setForeground(new java.awt.Color(255, 255, 255));
-        lbTitle.setText("Title");
+        lbId.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        lbId.setForeground(new java.awt.Color(255, 255, 255));
+        lbId.setText("Title");
 
-        lbValues.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        lbValues.setForeground(new java.awt.Color(255, 255, 255));
-        lbValues.setText("Values");
+        lbName.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lbName.setForeground(new java.awt.Color(255, 255, 255));
+        lbName.setText("Values");
 
-        lbDescription.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        lbDescription.setForeground(new java.awt.Color(255, 255, 255));
-        lbDescription.setText("Description");
+        lbGender.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lbGender.setForeground(new java.awt.Color(255, 255, 255));
+        lbGender.setText("Description");
+
+        lbclassDepartment.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lbclassDepartment.setForeground(new java.awt.Color(255, 255, 255));
+        lbclassDepartment.setText("Description");
+
+        lbsubject.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lbsubject.setForeground(new java.awt.Color(255, 255, 255));
+        lbsubject.setText("Description");
+
+        lbEmail.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lbEmail.setForeground(new java.awt.Color(255, 255, 255));
+        lbEmail.setText("Description");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -72,24 +90,35 @@ public class Card extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbDescription)
-                    .addComponent(lbValues)
-                    .addComponent(lbTitle)
-                    .addComponent(lbIcon))
-                .addContainerGap(283, Short.MAX_VALUE))
+                    .addComponent(lbsubject)
+                    .addComponent(lbGender)
+                    .addComponent(lbclassDepartment)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbEmail))
+                    .addComponent(lbIcon)
+                    .addComponent(lbId))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addComponent(lbIcon)
-                .addGap(18, 18, 18)
-                .addComponent(lbTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbId)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbValues)
-                .addGap(18, 18, 18)
-                .addComponent(lbDescription)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbName)
+                    .addComponent(lbEmail))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbGender)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbclassDepartment)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbsubject)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -107,9 +136,12 @@ public class Card extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lbDescription;
+    private javax.swing.JLabel lbEmail;
+    private javax.swing.JLabel lbGender;
     private javax.swing.JLabel lbIcon;
-    private javax.swing.JLabel lbTitle;
-    private javax.swing.JLabel lbValues;
+    private javax.swing.JLabel lbId;
+    private javax.swing.JLabel lbName;
+    private javax.swing.JLabel lbclassDepartment;
+    private javax.swing.JLabel lbsubject;
     // End of variables declaration//GEN-END:variables
 }

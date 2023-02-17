@@ -1,5 +1,6 @@
 package com.raven.component;
 
+import com.raven.event.EventMenuSelected;
 import com.raven.model.Model_Menu;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -11,9 +12,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 
-public class Menu extends javax.swing.JPanel {
+public class MenuAdmin extends javax.swing.JPanel {
 
-    public Menu() {
+    private EventMenuSelected event;
+
+    public void addEventMenuSelected(EventMenuSelected event) {
+        this.event = event;
+        listMenu1.addEventMenuSelected(event);
+    }
+    
+    public MenuAdmin() {
         initComponents();
         setOpaque(false);
         listMenu1.setOpaque(false);
@@ -21,8 +29,8 @@ public class Menu extends javax.swing.JPanel {
     }
 
     private void init() {
-        listMenu1.addItem(new Model_Menu("1", "Dashboard", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("2", "UI Elements", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("1", "Danh sách giảng viên", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("2", "Danh sách sinh viên", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("3", "Comonents", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("4", "Forms Stuff", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("5", "Date Table", Model_Menu.MenuType.MENU));
@@ -50,8 +58,8 @@ public class Menu extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/logo.png"))); // NOI18N
-        jLabel1.setText("Application");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/Logo_PTIT_University(48).png"))); // NOI18N
+        jLabel1.setText("Học viện bưu chính viễn thông");
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
@@ -59,7 +67,7 @@ public class Menu extends javax.swing.JPanel {
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMovingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelMovingLayout.setVerticalGroup(
