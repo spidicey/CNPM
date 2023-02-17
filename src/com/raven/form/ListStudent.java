@@ -12,7 +12,7 @@ public class ListStudent extends javax.swing.JPanel {
 
     public ListStudent() {
         initComponents();
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "User name", "Học vị", "Nam","CNTT","Ban tra sua","n20dcc@gmail.com"));
+        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "User name", "Học vị", "Nam","CNTT","n20dcc@gmail.com"));
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table

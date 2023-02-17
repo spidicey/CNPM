@@ -43,31 +43,13 @@ public class Model_Card {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getSubject() {
-        return "De tai      : "+subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
     
     public String getDepartment() {
-        if (this.Department==""){
-            return "";
-        }
         return "Khoa       : "+Department;
     }
 
     public void setDepartment(String Department) {
         this.Department = Department;
-    }
-    
-    public Model_Card(Icon icon, String title, String values, String description) {
-        this.icon = icon;
-        this.id = title;
-        this.name = values;
-        this.gender = description;
     }
 
     public Model_Card() {
@@ -78,29 +60,19 @@ public class Model_Card {
     private String name;
     private String gender;
     private String Department;
-    private String subject;
     private String email;
 
-    public Model_Card(Icon icon, String id, String name, String gender, String classDepartment, String subject, String email) {
+    public Model_Card(Icon icon, String id, String name, String gender, String classDepartment, String email) {
         this.icon = icon;
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.Department = classDepartment;
-        this.subject = subject;
         this.email = email;
     }
 
     
 
-    public Model_Card(Icon icon, String id, String name, String gender, String classDepartment, String subject) {
-        this.icon = icon;
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.Department = classDepartment;
-        this.subject = subject;
-    }
 
     
 

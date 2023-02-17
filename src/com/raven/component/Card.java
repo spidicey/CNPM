@@ -41,7 +41,6 @@ public class Card extends javax.swing.JPanel {
         lbName.setText(data.getName());
         lbGender.setText(data.getGender());
         lbclassDepartment.setText(data.getDepartment());
-        lbsubject.setText(data.getSubject());
         lbEmail.setText(data.getEmail());
     }
 

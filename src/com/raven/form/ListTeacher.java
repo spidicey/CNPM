@@ -1,5 +1,6 @@
 package com.raven.form;
 
+import com.raven.model.ModelCardTeacher;
 import com.raven.model.Model_Card;
 import com.raven.model.StatusType;
 import com.raven.swing.ScrollBar;
@@ -12,7 +13,7 @@ public class ListTeacher extends javax.swing.JPanel {
 
     public ListTeacher() {
         initComponents();
-        card1.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Ma sinh vien", "Ten sinh vien", "Gioi","CNTT","Ban tra sua","n20dcc@gmail.com"));
+        cardTeacher1.setData(new ModelCardTeacher(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Ma giang vien", "Ten giang vien", "Gioi","CNTT","n20dcc@gmail.com","Thac si","Truong khoa"));
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
@@ -43,18 +44,14 @@ public class ListTeacher extends javax.swing.JPanel {
     private void initComponents() {
 
         panel = new javax.swing.JLayeredPane();
-        card1 = new com.raven.component.Card();
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
         table = new com.raven.swing.Table();
         header1 = new com.raven.component.Header();
+        cardTeacher1 = new com.raven.component.CardTeacher();
 
         panel.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
-
-        card1.setColor1(new java.awt.Color(142, 142, 250));
-        card1.setColor2(new java.awt.Color(123, 123, 245));
-        panel.add(card1);
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -105,6 +102,9 @@ public class ListTeacher extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
 
+        cardTeacher1.setColor1(new java.awt.Color(142, 45, 226));
+        cardTeacher1.setColor2(new java.awt.Color(74, 0, 224));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,7 +118,8 @@ public class ListTeacher extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE))
+                            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE)
+                            .addComponent(cardTeacher1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
@@ -126,7 +127,9 @@ public class ListTeacher extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cardTeacher1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,7 +139,7 @@ public class ListTeacher extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.raven.component.Card card1;
+    private com.raven.component.CardTeacher cardTeacher1;
     private com.raven.component.Header header1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane panel;
