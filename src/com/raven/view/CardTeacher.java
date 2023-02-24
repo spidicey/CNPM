@@ -1,7 +1,7 @@
-package com.raven.component;
+package com.raven.view;
 
 import com.raven.model.ModelCardTeacher;
-import com.raven.model.Model_Card;
+import com.raven.model.ModelCard;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;

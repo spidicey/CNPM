@@ -33,7 +33,7 @@ public class PanelBorder extends javax.swing.JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        super.paintComponent(grphcs);
+    super.paintComponent(grphcs);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

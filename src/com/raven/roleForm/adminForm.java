@@ -10,7 +10,7 @@ import com.raven.event.EventMenuSelected;
 import com.raven.list.ListTeacher;
 import com.raven.list.ListStudent;
 import com.raven.model.ModelCardTeacher;
-import com.raven.model.Model_Card;
+import com.raven.model.ModelCard;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -63,10 +63,10 @@ public class adminForm extends javax.swing.JFrame {
     private void initComponents() {
 
         panelBorder1 = new com.raven.swing.PanelBorder();
-        menu = new com.raven.component.MenuAdmin();
-        header2 = new com.raven.component.Header();
+        menu = new com.raven.view.MenuAdmin();
+        header2 = new com.raven.view.Header();
         mainPanel = new javax.swing.JPanel();
-        cardTeacher1 = new com.raven.component.CardTeacher();
+        cardTeacher1 = new com.raven.view.CardTeacher();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -161,10 +161,10 @@ public class adminForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.raven.component.CardTeacher cardTeacher1;
-    private com.raven.component.Header header2;
+    private com.raven.view.CardTeacher cardTeacher1;
+    private com.raven.view.Header header2;
     private javax.swing.JPanel mainPanel;
-    private com.raven.component.MenuAdmin menu;
+    private com.raven.view.MenuAdmin menu;
     private com.raven.swing.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables
 }

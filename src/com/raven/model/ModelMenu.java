@@ -3,7 +3,7 @@ package com.raven.model;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class Model_Menu {
+public class ModelMenu {
 
     public String getIcon() {
         return icon;
@@ -29,13 +29,13 @@ public class Model_Menu {
         this.type = type;
     }
 
-    public Model_Menu(String icon, String name, MenuType type) {
+    public ModelMenu(String icon, String name, MenuType type) {
         this.icon = icon;
         this.name = name;
         this.type = type;
     }
 
-    public Model_Menu() {
+    public ModelMenu() {
     }
 
     private String icon;

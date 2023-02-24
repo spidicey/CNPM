@@ -75,9 +75,9 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="com.raven.component.MenuAdmin" name="menu">
+        <Component class="com.raven.view.MenuAdmin" name="menu">
         </Component>
-        <Component class="com.raven.component.Header" name="header2">
+        <Component class="com.raven.view.Header" name="header2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="sansserif" size="14" style="0"/>
@@ -91,7 +91,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
         </Container>
-        <Component class="com.raven.component.CardTeacher" name="cardTeacher1">
+        <Component class="com.raven.view.CardTeacher" name="cardTeacher1">
           <Properties>
             <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="db" green="b4" red="0" type="rgb"/>

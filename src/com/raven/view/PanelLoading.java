@@ -1,4 +1,4 @@
-package com.raven.component;
+package com.raven.view;
 
 import com.raven.model.ModelUser;
 import java.awt.Graphics;

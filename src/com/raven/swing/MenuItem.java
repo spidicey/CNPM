@@ -1,6 +1,6 @@
 package com.raven.swing;
 
-import com.raven.model.Model_Menu;
+import com.raven.model.ModelMenu;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,13 +12,13 @@ public class MenuItem extends javax.swing.JPanel {
     private boolean selected;
     private boolean hover;
 
-    public MenuItem(Model_Menu data) {
+    public MenuItem(ModelMenu data) {
         initComponents();
         setOpaque(false);
-        if (data.getType() == Model_Menu.MenuType.MENU) {
+        if (data.getType() == ModelMenu.MenuType.MENU) {
             lbIcon.setIcon(data.toIcon());
             lbName.setText(data.getName());
-        } else if (data.getType() == Model_Menu.MenuType.TITLE) {
+        } else if (data.getType() == ModelMenu.MenuType.TITLE) {
             lbIcon.setText(data.getName());
             lbIcon.setFont(new Font("sansserif", 1, 12));
             lbName.setVisible(false);

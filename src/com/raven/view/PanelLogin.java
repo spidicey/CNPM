@@ -1,4 +1,4 @@
-package com.raven.component;
+package com.raven.view;
 
 import java.awt.event.ActionListener;
 

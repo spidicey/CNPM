@@ -1,4 +1,4 @@
-package com.raven.component;
+package com.raven.view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

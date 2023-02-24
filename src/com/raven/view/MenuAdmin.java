@@ -1,7 +1,7 @@
-package com.raven.component;
+package com.raven.view;
 
 import com.raven.event.EventMenuSelected;
-import com.raven.model.Model_Menu;
+import com.raven.model.ModelMenu;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -29,22 +29,22 @@ public class MenuAdmin extends javax.swing.JPanel {
     }
 
     private void init() {
-        listMenu1.addItem(new Model_Menu("1", "Danh sách giảng viên", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("2", "Danh sách sinh viên", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("3", "Comonents", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("4", "Forms Stuff", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("5", "Date Table", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
+        listMenu1.addItem(new ModelMenu("1", "Danh sách giảng viên", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("2", "Danh sách sinh viên", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("3", "Danh sách hệ đào tạo", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("4", "Danh sách khoa đào tạo", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("5", "Danh sách hội đồng", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("", " ", ModelMenu.MenuType.EMPTY));
 
-        listMenu1.addItem(new Model_Menu("", "My Data", Model_Menu.MenuType.TITLE));
-        listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));
-        listMenu1.addItem(new Model_Menu("6", "Icons", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("7", "Sample Page", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("8", "Extra", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("9", "More", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("10", "Logout", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("close", "Exit", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("", "", Model_Menu.MenuType.EMPTY));
+//        listMenu1.addItem(new ModelMenu("", "My Data", ModelMenu.MenuType.TITLE));
+        listMenu1.addItem(new ModelMenu("", " ", ModelMenu.MenuType.EMPTY));
+        listMenu1.addItem(new ModelMenu("6", "Icons", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("7", "Sample Page", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("8", "Extra", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("9", "More", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("10", "Logout", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("close", "Exit", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("", "", ModelMenu.MenuType.EMPTY));
     }
 
     @SuppressWarnings("unchecked")

@@ -10,7 +10,7 @@ import javax.swing.Icon;
  *
  * @author thinh nguyen
  */
-public class ModelCardTeacher extends Model_Card{
+public class ModelCardTeacher extends ModelCard{
     private String degree;
     private String position;
 
