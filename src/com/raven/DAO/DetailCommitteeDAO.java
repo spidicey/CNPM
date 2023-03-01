@@ -6,22 +6,24 @@ package com.raven.DAO;
 
 import com.raven.conection.ConnectDatabase;
 import com.raven.model.Account;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
+import com.raven.model.DetailCommittee;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.sql.*;
 
 /**
  *
  * @author thinh nguyen
  */
-public class AccountDAO implements DAOInterface<Account> {
+public class DetailCommitteeDAO implements DAOInterface<DetailCommittee>{
 
     @Override
-    public List<Account> getAll() {
-        List<Account> list = new ArrayList<>();
+    public List<DetailCommittee> getAll() {
+        List<DetailCommittee> list = new ArrayList<>();
         ConnectDatabase myConnection = new ConnectDatabase();
         String sql = "{CALL SelectAllAccount()}";
         Connection conn = myConnection.openConnection();
@@ -31,7 +33,6 @@ public class AccountDAO implements DAOInterface<Account> {
                     Statement stmt = conn.createStatement();
                     ResultSet rs = stmt.executeQuery(sql);
                     while (rs.next()) {
-                        list.add(new Account(rs.getString("UserName"), rs.getString("Password"), rs.getInt("IDQuyen")));
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -52,30 +53,23 @@ public class AccountDAO implements DAOInterface<Account> {
     }
 
     @Override
-    public Optional<Account> get(int id) {
+    public Optional<DetailCommittee> get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean save(Account t) {
+    public boolean save(DetailCommittee t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean update(Account t) {
+    public boolean update(DetailCommittee t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean delete(Account t) {
+    public boolean delete(DetailCommittee t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    public static void main(String[] args) {
-        AccountDAO a = new AccountDAO();
-        List<Account> listAccount = a.getAll();
-        for(Account account : listAccount){
-            System.out.println(account);
-        }
-    }
+    
 }

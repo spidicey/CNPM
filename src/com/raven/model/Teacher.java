@@ -10,14 +10,14 @@ package com.raven.model;
  */
 public class Teacher {
 
-    String idGiangVien;
-    String hoTen;
-    String gioiTinh;
+    private String idGiangVien;
+    private String hoTen;
+    private String gioiTinh;
 
-    String email;
-    String TenKhoa;
-
-    String hocVi;
+    private String email;
+    private String TenKhoa;
+ 
+    private String hocVi;
 
     public Teacher(String idSinhVien, String hoTen, String gioiTinh, String email, String TenKhoa, String hocVi, String chucVu) {
         this.idGiangVien = idSinhVien;

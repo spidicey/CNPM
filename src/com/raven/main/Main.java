@@ -6,17 +6,20 @@
 package com.raven.main;
 
 import com.raven.event.EventMenuSelected;
+import com.raven.list.ListAccount;
+import com.raven.list.ListAssignment;
+import com.raven.list.ListClassName;
+import com.raven.list.ListCommittee;
+import com.raven.list.ListDepartment;
+import com.raven.list.ListSession;
 import com.raven.list.ListTeacher;
 import com.raven.list.ListStudent;
+import com.raven.list.ListTypeTrainning;
 import com.raven.login.Login;
-import com.raven.model.ModelCardTeacher;
-import com.raven.model.ModelCard;
-import com.raven.swing.ScrollBar;
 import java.awt.Color;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,22 +45,68 @@ public class Main extends javax.swing.JFrame {
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
-                if (index == 0) {
-                    setForm(new ListTeacher());
-                    System.out.println(index);
-                } else if (index == 1) {
-                    setForm(new ListStudent());
-                    System.out.println(index);
-                } else if (index == 11) {
-                    Login login = new Login();
-                    login.setVisible(true);
-                    dispose();
-                } else if (index == 12) {
-                    System.out.println(index);
-                    System.exit(0);
-                } else {
-                    System.out.println(index);
+                switch (index) {
+                    case 1:
+                        setForm(new ListTeacher());
+                        System.out.println(index);
+                        break;
+                    case 2:
+                        setForm(new ListStudent());
+                        System.out.println(index);
+                        break;
+                    case 3:
+                        setForm(new ListTypeTrainning());
+                        System.out.println(index);
+                        break;
 
+                    case 4:
+                        setForm(new ListSession());
+                        System.out.println(index);
+                        break;
+
+                    case 5:
+                        setForm(new ListClassName());
+                        System.out.println(index);
+                        break;
+                    case 6:
+                        setForm(new ListAccount());
+                        System.out.println(index);
+                        break;
+                    case 8:
+                        setForm(new ListAssignment());
+                        System.out.println(index);
+                        break;
+                    case 9:
+                        setForm(new ListCommittee());
+                        System.out.println(index);
+                        break;
+                    case 10:
+                        setForm(new ListDepartment());
+                        System.out.println(index);
+                        break; 
+                    case 13:
+                        int responeLogin = JOptionPane.showConfirmDialog(fram, "Bạn có chắc chứ?", "Quye về đăng nhâpk", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (responeLogin == JOptionPane.YES_OPTION) {
+                            Login login = new Login();
+                            login.setVisible(true);
+                            dispose();
+                            break;
+                        } else {
+                            break;
+                        }
+
+                    case 14:
+                        System.out.println(index);
+                        setFram(fram);
+                        int responeExit = JOptionPane.showConfirmDialog(fram, "Bạn có chắc muốn thoát không?", "Thoát", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (responeExit == JOptionPane.YES_OPTION) {
+                            System.exit(0);
+                        } else {
+                            break;
+                        }
+                    default:
+                        System.out.println(index);
+                        break;
                 }
             }
         });
@@ -87,6 +136,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
+        mainPanel.setBackground(new java.awt.Color(102, 153, 255));
         mainPanel.setOpaque(false);
         mainPanel.setLayout(new java.awt.BorderLayout());
 
@@ -101,8 +151,8 @@ public class Main extends javax.swing.JFrame {
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
-            .addComponent(mainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+            .addComponent(menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

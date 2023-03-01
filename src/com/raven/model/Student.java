@@ -17,14 +17,14 @@ public class Student {
         return "Student{" + "idSinhVien=" + idSinhVien + ", hoTen=" + hoTen + ", lop=" + lop + ", namSinh=" + namSinh + ", gioiTinh=" + gioiTinh + ", queQuan=" + queQuan + ", email=" + email + ", gpa=" + gpa + '}';
     }
     
-    String idSinhVien;
-    String hoTen;
-    String lop;
-    Date namSinh;
-    String gioiTinh;
-    String queQuan;
-    String email;
-    float gpa;
+    private String idSinhVien;
+    private String hoTen;
+    private String lop;
+    private Date namSinh;
+    private String gioiTinh;
+    private String queQuan;
+    private String email;
+    private float gpa;
 
     public String getIdSinhVien() {
         return idSinhVien;

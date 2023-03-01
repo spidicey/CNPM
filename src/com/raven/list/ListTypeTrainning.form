@@ -61,48 +61,34 @@
                       <Component id="panelBorder1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="birthPlace" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                      <Component id="idClass" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                      <Component id="idStudent" min="-2" pref="230" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="spTable" alignment="0" min="-2" pref="932" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="header1" pref="0" max="32767" attributes="0"/>
+                                  <Component id="idTypeTrainning" pref="230" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
+                                      <Component id="nameTypeTrainning" min="-2" pref="230" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="btnSearch" min="-2" pref="78" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="btnAdd" min="-2" pref="78" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnDelete" min="-2" pref="78" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="button2" min="-2" pref="78" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="header1" alignment="1" min="-2" pref="252" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="studentName" min="-2" pref="230" max="-2" attributes="0"/>
-                                      <Component id="sex" min="-2" pref="230" max="-2" attributes="0"/>
-                                      <Component id="dateOfBirth" min="-2" pref="230" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnSearch" min="-2" pref="78" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace pref="84" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="email" min="-2" pref="230" max="-2" attributes="0"/>
-                              <Component id="gpa" min="-2" pref="230" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="btnAdd" min="-2" pref="78" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnDelete" min="-2" pref="78" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="button2" min="-2" pref="78" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="spTable" alignment="0" min="-2" pref="932" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -113,22 +99,10 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="idStudent" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="studentName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="idTypeTrainning" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nameTypeTrainning" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="gpa" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="birthPlace" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dateOfBirth" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="sex" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
-                  <Component id="idClass" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="227" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="header1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
@@ -160,8 +134,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="185" max="-2" attributes="0"/>
-                  <EmptySpace pref="737" max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="735" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -184,47 +158,22 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="7f" green="7f" red="7f" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch sinh vi&#xea;n"/>
+            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch h&#x1ec7; &#x111;&#xe0;o t&#x1ea1;o"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="com.raven.swing.TextField" name="idStudent">
+    <Component class="com.raven.swing.TextField" name="idTypeTrainning">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="M&#xe3; sinh vi&#xea;n"/>
+        <Property name="labelText" type="java.lang.String" value="M&#xe3; h&#x1ec7; &#x111;&#xe0;o t&#x1ea1;o"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idStudentActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idTypeTrainningActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="studentName">
+    <Component class="com.raven.swing.TextField" name="nameTypeTrainning">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="T&#xea;n sinh vi&#xea;n"/>
-      </Properties>
-    </Component>
-    <Component class="com.raven.swing.TextField" name="birthPlace">
-      <Properties>
-        <Property name="labelText" type="java.lang.String" value="Qu&#xea; qu&#xe1;n"/>
-      </Properties>
-    </Component>
-    <Component class="com.raven.swing.TextField" name="idClass">
-      <Properties>
-        <Property name="labelText" type="java.lang.String" value="M&#xe3; l&#x1edb;p"/>
-      </Properties>
-    </Component>
-    <Component class="com.raven.swing.TextField" name="dateOfBirth">
-      <Properties>
-        <Property name="labelText" type="java.lang.String" value="N&#x103;m sinh"/>
-      </Properties>
-    </Component>
-    <Component class="com.raven.swing.TextField" name="email">
-      <Properties>
-        <Property name="labelText" type="java.lang.String" value="Email"/>
-      </Properties>
-    </Component>
-    <Component class="com.raven.swing.TextField" name="gpa">
-      <Properties>
-        <Property name="labelText" type="java.lang.String" value="GPA"/>
+        <Property name="labelText" type="java.lang.String" value="T&#xea;n h&#x1ec7; &#x111;&#xe0;o t&#x1ea1;o"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="spTable">
@@ -239,18 +188,12 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="com.raven.swing.Table" name="tblStudent">
+        <Component class="com.raven.swing.Table" name="tblTypeTrainning">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="8" rowCount="0">
-                <Column editable="false" title="M&#xe3; sinh vi&#xea;n" type="java.lang.Object"/>
-                <Column editable="false" title="T&#xea;n sinh vi&#xea;n" type="java.lang.Object"/>
-                <Column editable="false" title="L&#x1edb;p" type="java.lang.Object"/>
-                <Column editable="false" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.Object"/>
-                <Column editable="false" title="Qu&#xea; Qu&#xe1;n" type="java.lang.Object"/>
-                <Column editable="false" title="N&#x103;m sinh" type="java.lang.Object"/>
-                <Column editable="false" title="Email" type="java.lang.Object"/>
-                <Column editable="false" title="Gpa" type="java.lang.Object"/>
+              <Table columnCount="2" rowCount="0">
+                <Column editable="false" title="M&#xe3; h&#x1ec7; &#x111;&#xe0;o t&#x1ea1;o" type="java.lang.Object"/>
+                <Column editable="false" title="T&#xea;n h&#x1ec7; &#x111;&#xe0;o t&#x1ea1;o" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -261,36 +204,6 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -356,20 +269,6 @@
       </Events>
     </Component>
     <Component class="com.raven.view.Header" name="header1">
-    </Component>
-    <Component class="javax.swing.JComboBox" name="sex">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Nam"/>
-            <StringItem index="1" value="N&#x1eef;"/>
-          </StringArray>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="com.raven.swing.Button" name="btnSearch">
       <Properties>

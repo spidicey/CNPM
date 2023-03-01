@@ -9,9 +9,9 @@ package com.raven.model;
  * @author thinh nguyen
  */
 public class Account {
-    String userName;
-    String password;
-    int role;
+    private String userName;
+    private String password;
+    private int role;
 
     @Override
     public String toString() {

@@ -5,33 +5,36 @@
 package com.raven.DAO;
 
 import com.raven.conection.ConnectDatabase;
-import com.raven.model.Account;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
+import com.raven.model.Session;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author thinh nguyen
  */
-public class AccountDAO implements DAOInterface<Account> {
+public class SessionDAO implements DAOInterface<Session> {
 
     @Override
-    public List<Account> getAll() {
-        List<Account> list = new ArrayList<>();
+    public List<Session> getAll() {
+        List<Session> list = new ArrayList<>();
         ConnectDatabase myConnection = new ConnectDatabase();
-        String sql = "{CALL SelectAllAccount()}";
+        String sql = "{CALL SelectAllKhoaDaoTao()}";
         Connection conn = myConnection.openConnection();
         try {
             if (conn != null) {
                 try {
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery(sql);
+                    CallableStatement p = conn.prepareCall(sql);
+                    ResultSet rs = p.executeQuery();
                     while (rs.next()) {
-                        list.add(new Account(rs.getString("UserName"), rs.getString("Password"), rs.getInt("IDQuyen")));
+                        list.add(new Session(rs.getString("IDKhoaDaoTao"), rs.getString("NienKhoa"), rs.getString("GhiChu")));
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -44,7 +47,7 @@ public class AccountDAO implements DAOInterface<Account> {
             try {
                 conn.close();
             } catch (SQLException ex) {
-                System.out.println("close failed");
+                Logger.getLogger(StudentDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -52,30 +55,23 @@ public class AccountDAO implements DAOInterface<Account> {
     }
 
     @Override
-    public Optional<Account> get(int id) {
+    public Optional<Session> get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean save(Account t) {
+    public boolean save(Session t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean update(Account t) {
+    public boolean update(Session t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean delete(Account t) {
+    public boolean delete(Session t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    public static void main(String[] args) {
-        AccountDAO a = new AccountDAO();
-        List<Account> listAccount = a.getAll();
-        for(Account account : listAccount){
-            System.out.println(account);
-        }
-    }
+    
 }
