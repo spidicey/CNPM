@@ -14,12 +14,14 @@ import com.raven.list.ListDepartment;
 import com.raven.list.ListSession;
 import com.raven.list.ListTeacher;
 import com.raven.list.ListStudent;
+import com.raven.list.ListSubject;
 import com.raven.list.ListTypeTrainning;
 import com.raven.login.Login;
 import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -72,6 +74,11 @@ public class Main extends javax.swing.JFrame {
                         setForm(new ListAccount());
                         System.out.println(index);
                         break;
+                    case 7:
+                        setFram(fram);
+                        setForm(new ListSubject(fram));
+                        System.out.println(index);
+                        break;
                     case 8:
                         setForm(new ListAssignment());
                         System.out.println(index);
@@ -83,7 +90,7 @@ public class Main extends javax.swing.JFrame {
                     case 10:
                         setForm(new ListDepartment());
                         System.out.println(index);
-                        break; 
+                        break;
                     case 13:
                         int responeLogin = JOptionPane.showConfirmDialog(fram, "Bạn có chắc chứ?", "Quye về đăng nhâpk", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (responeLogin == JOptionPane.YES_OPTION) {

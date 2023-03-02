@@ -123,7 +123,7 @@ public class ListCommittee extends javax.swing.JPanel {
         tblCommittee.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
         tblCommittee.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

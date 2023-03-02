@@ -261,20 +261,32 @@ public class ListDepartment extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        btnDelete tblDelete = new btnDelete();
-        tblDelete.btnDelete(tblDepartment);
-//        DefaultTableModel tblModel = (DefaultTableModel) tblListStudent.getModel();
-//        if(tblListStudent.getSelectedRowCount()==1){
-//            tblModel.removeRow(tblListStudent.getSelectedRow());
-//        }
-//        else{
-//            if (tblListStudent.getRowCount()==0){
-//                JOptionPane.showMessageDialog(this,"Danh sách trống");
-//            }
-//            else{
-//                JOptionPane.showMessageDialog(this,"Hãy chọn dòng muốn xoá");
-//            }
-//        }
+        String selectedValue = tblDepartment.getModel().getValueAt(tblDepartment.getSelectedRow(), 0).toString();
+
+        System.out.println(selectedValue);
+        String sql = "BEGIN transaction\n"
+                + "DELETE FROM KHOA WHERE IDKhoa=?\n"
+                + "commit";
+        int responeLogin = JOptionPane.showConfirmDialog(this, "Bạn có chắc xoá không??", "Xoá", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (responeLogin == JOptionPane.YES_OPTION) {
+            try {
+                ConnectDatabase myConnection = new ConnectDatabase();
+                Connection conn = myConnection.openConnection();
+                PreparedStatement p = conn.prepareStatement(sql);
+                p.setString(1, selectedValue);
+                p.executeUpdate();
+                p.close();
+                JOptionPane.showMessageDialog(this, "Xoá thành công");
+                DefaultTableModel model = (DefaultTableModel) tblDepartment.getModel();
+                model.removeRow(tblDepartment.getSelectedRow());
+            } catch (SQLException ex) {
+                Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Xoá thất bại");
+
+            }
+        } else {
+            return;
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
