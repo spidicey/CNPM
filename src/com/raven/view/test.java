@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.raven.view;
-
 import com.raven.conection.ConnectDatabase;
 import java.io.File;
 import java.io.FileOutputStream;

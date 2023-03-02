@@ -44,10 +44,10 @@ public class DownloadUpload extends javax.swing.JPanel {
         cmdDownload = new raven.cell.ActionButton();
         cmdUpload = new raven.cell.ActionButton();
 
-        cmdDownload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/raven/cell/download.png"))); // NOI18N
+        cmdDownload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/raven/cell/download_1.png"))); // NOI18N
         cmdDownload.setToolTipText("Tải xuống");
 
-        cmdUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/raven/cell/upload.png"))); // NOI18N
+        cmdUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/raven/cell/upload_1.png"))); // NOI18N
         cmdUpload.setToolTipText("Tải lên");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

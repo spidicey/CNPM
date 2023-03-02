@@ -13,10 +13,12 @@ import com.raven.view.test;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,6 +32,9 @@ import jnafilechooser.api.JnaFileChooser;
 import raven.cell.TableDonwloadUploadCellEditor;
 import raven.cell.TableDownloadUploadCellRender;
 import raven.cell.TableDownloadUploadEvent;
+import java.io.FileOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class ListSubject extends JPanel {
 
@@ -45,9 +50,10 @@ public class ListSubject extends JPanel {
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
         setFram(parent);
-        TableDownloadUploadEvent event = new TableDownloadUploadEvent() {
+        TableDownloadUploadEvent banMemDoAn = new TableDownloadUploadEvent() {
             @Override
             public void download(int row) {
+                String selectedValue = tblSubject.getModel().getValueAt(tblSubject.getSelectedRow(), 0).toString();
                 JnaFileChooser jnaCh = new JnaFileChooser();
                 boolean save = jnaCh.showSaveDialog(parent);
                 jnaCh.addFilter("All Files", "*");
@@ -57,11 +63,30 @@ public class ListSubject extends JPanel {
                         PdfWriter writer;
                         writer = new PdfWriter(file.getPath());
                         PdfDocument pdf = new PdfDocument(writer);
-                        // Creating a Document object
                         Document document = new Document(pdf);
                         System.out.println(file.getPath());
-                        JOptionPane.showMessageDialog(parent, "thêm thành công");
+                        byte[] pdfData = Files.readAllBytes(file.toPath());
+                        ConnectDatabase myConnection = new ConnectDatabase();
+                        Connection conn = myConnection.openConnection();
+                        String sql = "SELECT BanMemDeTai FROM DE_TAI where TenDeTai=?";
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, selectedValue);
+                        ResultSet resultSet = stmt.executeQuery();
+                        if (resultSet.next()) {
+                            byte[] pdfData1 = resultSet.getBytes("BanMemDeTai");
+                            FileOutputStream outputStream = new FileOutputStream(file);
+                            outputStream.write(pdfData1);
+                            outputStream.close();
+                        }
+                        System.out.println(pdfData);
+                        JOptionPane.showMessageDialog(parent, "Tải xuống thành công");
                     } catch (FileNotFoundException ex) {
+                        Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(parent, "Tải xuống thất bại");
+
+                    } catch (IOException ex) {
                         Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
@@ -88,15 +113,90 @@ public class ListSubject extends JPanel {
                         stmt.setString(2, selectedValue);
                         stmt.executeUpdate();
                         System.out.println(pdfData);
+                        JOptionPane.showMessageDialog(parent, "Tải lên thành công");
 
                     } catch (IOException ex) {
                     } catch (SQLException ex) {
                         Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(parent, "Tải lên thất bại");
+
                     }
                 }
             }
         };
+        TableDownloadUploadEvent sourceCode = new TableDownloadUploadEvent() {
+            @Override
+            public void download(int row) {
+                String selectedValue = tblSubject.getModel().getValueAt(tblSubject.getSelectedRow(), 0).toString();
+                JnaFileChooser jnaCh = new JnaFileChooser();
+                boolean save = jnaCh.showSaveDialog(parent);
+                jnaCh.addFilter("All Files", "*");
+                if (save) {
+                    try {
+                        File file = jnaCh.getSelectedFile();
+                        System.out.println(file.getPath());
+                        ConnectDatabase myConnection = new ConnectDatabase();
+                        Connection conn = myConnection.openConnection();
+                        String sql = "SELECT SOURCECODE FROM DE_TAI where TenDeTai=?";
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, selectedValue);
+                        ResultSet resultSet = stmt.executeQuery();
 
+                        if (resultSet.next()) {
+                            byte[] pdfData1 = resultSet.getBytes("SOURCECODE");
+                            FileOutputStream outputStream = new FileOutputStream(jnaCh.getSelectedFile());
+                            ZipOutputStream zipOut = new ZipOutputStream(outputStream);
+                            ZipEntry entry = new ZipEntry("data.bin");
+                            zipOut.putNextEntry(entry);
+                            zipOut.write(pdfData1);
+                            zipOut.closeEntry();
+                            zipOut.close();
+                        }
+                        JOptionPane.showMessageDialog(parent, "Tải xuống thành công");
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(parent, "Tải xuống thất bại");
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // Creating a PdfDocument object
+                }
+            }
+
+            @Override
+            public void upload(int row) {
+                String selectedValue = tblSubject.getModel().getValueAt(tblSubject.getSelectedRow(), 0).toString();
+                System.out.println(selectedValue);
+                JnaFileChooser jnaCh = new JnaFileChooser();
+                boolean save = jnaCh.showOpenDialog(parent);
+                if (save) {
+                    String a = jnaCh.getSelectedFile().getPath();
+                    File file = jnaCh.getSelectedFile();
+                    try {
+                        byte[] data = Files.readAllBytes(file.toPath());
+                        ConnectDatabase myConnection = new ConnectDatabase();
+                        Connection conn = myConnection.openConnection();
+                        String sql = "UPDATE DE_TAI SET SOURCECODE=?  where TenDeTai=?";
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setBytes(1, data);
+                        stmt.setString(2, selectedValue);
+                        stmt.executeUpdate();
+                        System.out.println(data);
+                        JOptionPane.showMessageDialog(parent, "Tải lên thành công");
+
+                    } catch (IOException ex) {
+                    } catch (SQLException ex) {
+                        Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(parent, "Tải lên thất bại");
+
+                    }
+                }
+            }
+        };
         SubjectDAO subjectDAO = new SubjectDAO();
         List<Subject> subjectList = subjectDAO.getAll();
         spTable.setVerticalScrollBar(new ScrollBar());
@@ -111,9 +211,9 @@ public class ListSubject extends JPanel {
             tblSubject.addRow(new Object[]{subject.getNameSubject(), subject.getStudent(), "", "", subject.getInstructor(), subject.getInstructorMark(), subject.getThesis_dissertation(), subject.getThesisMark(), subject.getCommittee(), subject.getCommitteeMark(), subject.getComment()});
         }
         tblSubject.getColumnModel().getColumn(2).setCellRenderer(new TableDownloadUploadCellRender());
-        tblSubject.getColumnModel().getColumn(2).setCellEditor(new TableDonwloadUploadCellEditor(event));
+        tblSubject.getColumnModel().getColumn(2).setCellEditor(new TableDonwloadUploadCellEditor(banMemDoAn));
         tblSubject.getColumnModel().getColumn(3).setCellRenderer(new TableDownloadUploadCellRender());
-        tblSubject.getColumnModel().getColumn(3).setCellEditor(new TableDonwloadUploadCellEditor(event));
+        tblSubject.getColumnModel().getColumn(3).setCellEditor(new TableDonwloadUploadCellEditor(sourceCode));
     }
 
     @SuppressWarnings("unchecked")
@@ -356,7 +456,7 @@ public class ListSubject extends JPanel {
 
         System.out.println(selectedValue);
         String sql = "BEGIN transaction\n"
-                + "DELETE FROM GIANG_VIEN WHERE IDGiangVien=?\n"
+                + "DELETE FROM DE_TAI WHERE TenDeTai=?\n"
                 + "commit";
         int responeLogin = JOptionPane.showConfirmDialog(this, "Bạn có chắc xoá không??", "Xoá", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (responeLogin == JOptionPane.YES_OPTION) {
@@ -479,14 +579,13 @@ public class ListSubject extends JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         CharSequence searchText = header1.getString().toLowerCase();
-        TeacherDAO teacherDAO = new TeacherDAO();
-        List<Teacher> teacherList = teacherDAO.getAll();
+        SubjectDAO subjectDAO = new SubjectDAO();
+        List<Subject> subjectList = subjectDAO.getAll();
         DefaultTableModel model = (DefaultTableModel) tblSubject.getModel();
         model.setRowCount(0);
-        for (Teacher teacher : teacherList) {
-            if (teacher.getHoTen().toLowerCase().contains(searchText)) {
-                tblSubject.addRow(new Object[]{teacher.getIdGiangVien(), teacher.getHoTen(), teacher.getGioiTinh(), teacher.getEmail(), teacher.getTenKhoa(), teacher.getHocVi(), teacher.getChucVu()});
-            }
+        for (Subject subject : subjectList) {
+//            table.addRow(new Object[]{"N20DCCN075", "Nguyễn Phước Duy Thịnh", "D20CQCN01", "Nam","Cà Mau" ,"2002","sdgwb@gmail.com",4.0});
+            tblSubject.addRow(new Object[]{subject.getNameSubject(), subject.getStudent(), "", "", subject.getInstructor(), subject.getInstructorMark(), subject.getThesis_dissertation(), subject.getThesisMark(), subject.getCommittee(), subject.getCommitteeMark(), subject.getComment()});
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 

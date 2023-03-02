@@ -42,7 +42,7 @@
     <Component class="raven.cell.ActionButton" name="cmdDownload">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/raven/cell/download.png"/>
+          <Image iconType="3" name="/raven/cell/download_1.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="T&#x1ea3;i xu&#x1ed1;ng"/>
       </Properties>
@@ -50,7 +50,7 @@
     <Component class="raven.cell.ActionButton" name="cmdUpload">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/raven/cell/upload.png"/>
+          <Image iconType="3" name="/raven/cell/upload_1.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="T&#x1ea3;i l&#xea;n"/>
       </Properties>

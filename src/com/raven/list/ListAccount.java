@@ -289,7 +289,6 @@ public class ListAccount extends javax.swing.JPanel {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         String userName = this.userName.getText();
         String password = this.password.getText();
-        int role = Integer.parseInt(this.role.getText());
         boolean flag = true;
         if (userName.trim().equals("")) {
             this.userName.setHelperText("Không được bỏ trống tên tài khoản");
@@ -306,6 +305,7 @@ public class ListAccount extends javax.swing.JPanel {
         if (!flag) {
             return;
         }
+        int role = Integer.parseInt(this.role.getText());
         int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có chắc thêm không??", "Thêm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (responeADD == JOptionPane.YES_OPTION) {
             try {
