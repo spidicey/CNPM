@@ -44,6 +44,7 @@ public class Main extends javax.swing.JFrame {
 //        cardTeacher1.setData(new ModelCardTeacher(new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")), "Ma giang vien", "Ten giang vien", "Gioi", "CNTT", "n20dcc@gmail.com", "Thac si", "Truong khoa"));
         setBackground(new Color(0, 0, 0, 0));
         menu.initMoving(Main.this);
+        setFram(fram);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
@@ -75,7 +76,6 @@ public class Main extends javax.swing.JFrame {
                         System.out.println(index);
                         break;
                     case 7:
-                        setFram(fram);
                         setForm(new ListSubject(fram));
                         System.out.println(index);
                         break;
@@ -84,7 +84,7 @@ public class Main extends javax.swing.JFrame {
                         System.out.println(index);
                         break;
                     case 9:
-                        setForm(new ListCommittee());
+                        setForm(new ListCommittee(fram));
                         System.out.println(index);
                         break;
                     case 10:

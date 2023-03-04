@@ -12,14 +12,20 @@
         <Component class="com.raven.swing.Table" name="tblDetail">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="4">
+              <Table columnCount="4" rowCount="4">
                 <Column editable="false" title="M&#xe3; h&#x1ed9;i &#x111;&#x1ed3;ng" type="java.lang.Object"/>
+                <Column editable="false" title="M&#xe3; th&#xe0;nh vi&#xea;n" type="java.lang.Object"/>
                 <Column editable="false" title="Th&#xe0;nh vi&#xea;n" type="java.lang.Object"/>
                 <Column editable="true" title="Action" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -78,16 +84,16 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="header1" min="-2" pref="230" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="idTeacher" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                              <Component id="teacherName" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                              <Component id="idCommittee" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                              <Component id="president" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="idDepartment" min="-2" pref="230" max="-2" attributes="0"/>
-                                  <Component id="email" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="comment" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="members" min="-2" pref="230" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="276" max="32767" attributes="0"/>
                           </Group>
@@ -95,11 +101,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnSearch" min="-2" pref="78" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="button3" min="-2" pref="78" max="-2" attributes="0"/>
+                              <Component id="btnAdd" min="-2" pref="78" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="button1" min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="btnDelete" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="button2" min="-2" pref="78" max="-2" attributes="0"/>
                   </Group>
@@ -116,20 +122,20 @@
               <Component id="panel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="idTeacher" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="idCommittee" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="members" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="teacherName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="president" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comment" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="124" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="header1" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="button3" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="button1" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnAdd" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnDelete" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="button2" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="btnSearch" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
@@ -188,14 +194,14 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="7f" green="7f" red="7f" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch gi&#x1ea3;ng vi&#xea;n"/>
+            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch h&#x1ed9;i &#x111;&#x1ed3;ng"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
     <Component class="com.raven.view.Header" name="header1">
     </Component>
-    <Component class="com.raven.swing.Button" name="button1">
+    <Component class="com.raven.swing.Button" name="btnDelete">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -209,7 +215,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
       </Events>
     </Component>
     <Component class="com.raven.swing.Button" name="button2">
@@ -229,7 +235,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button2ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.Button" name="button3">
+    <Component class="com.raven.swing.Button" name="btnAdd">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="ff" red="16" type="rgb"/>
@@ -243,7 +249,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="spTable">
@@ -305,36 +311,36 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="com.raven.swing.TextField" name="idTeacher">
+    <Component class="com.raven.swing.TextField" name="idCommittee">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="M&#xe3; h&#x1ed9;i &#x111;&#x1ed3;ng"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idTeacherActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idCommitteeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="teacherName">
+    <Component class="com.raven.swing.TextField" name="president">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="Ch&#x1ee7; t&#x1ecb;ch h&#x1ed9;i &#x111;&#x1ed3;ng"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="teacherNameActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="presidentActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="idDepartment">
+    <Component class="com.raven.swing.TextField" name="comment">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="Nh&#x1ead;n x&#xe9;t"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idDepartmentActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="commentActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="email">
+    <Component class="com.raven.swing.TextField" name="members">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="S&#x1ed1; th&#xe0;nh vi&#xea;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emailActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="membersActionPerformed"/>
       </Events>
     </Component>
     <Component class="com.raven.swing.Button" name="btnSearch">

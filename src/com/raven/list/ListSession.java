@@ -1,34 +1,24 @@
 package com.raven.list;
 
 import com.raven.DAO.SessionDAO;
-import com.raven.DAO.StudentDAO;
-import com.raven.DAO.TeacherDAO;
 import com.raven.conection.ConnectDatabase;
-import com.raven.controller.btnDelete;
-import com.raven.model.ModelCardTeacher;
-import com.raven.model.ModelCard;
 import com.raven.model.Session;
-import com.raven.model.StatusType;
-import com.raven.model.Student;
-import com.raven.model.Teacher;
 import com.raven.swing.ScrollBar;
-import com.raven.view.Addstudent;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import raven.cell.TableFillCellRender;
+import raven.cell.TableFillEditor;
+import raven.cell.TableFillEvent;
 
 public class ListSession extends javax.swing.JPanel {
 
@@ -37,7 +27,22 @@ public class ListSession extends javax.swing.JPanel {
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
+        TableFillEvent event = new TableFillEvent() {
+            @Override
+            public void fill(int row) {
+                TableModel model = tblSession.getModel();
+                Object[] rowData = new Object[model.getColumnCount()];
+                for (int i = 0; i < model.getColumnCount(); i++) {
+                    rowData[i] = model.getValueAt(row, i);
+                    System.out.println(rowData[i]);
+                }
+                idSession.setText((String) rowData[0]);
+                session.setText((String) rowData[1]);
+                note.setText((String) rowData[3]);
 
+                System.out.println(row);
+            }
+        };
         spTable.setVerticalScrollBar(new ScrollBar());
         spTable.getVerticalScrollBar().setBackground(Color.WHITE);
         spTable.getViewport().setBackground(Color.WHITE);
@@ -49,19 +54,9 @@ public class ListSession extends javax.swing.JPanel {
         for (Session session : sessionList) {
             tblSession.addRow(new Object[]{session.getIdSession(), session.getSession(), session.getNote()});
         }
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+        tblSession.getColumnModel().getColumn(3).setCellRenderer(new TableFillCellRender());
+        tblSession.getColumnModel().getColumn(3).setCellEditor(new TableFillEditor(event));
+
     }
 
     @SuppressWarnings("unchecked")
@@ -78,10 +73,11 @@ public class ListSession extends javax.swing.JPanel {
         tblSession = new com.raven.swing.Table();
         btnAdd = new com.raven.swing.Button();
         btnDelete = new com.raven.swing.Button();
-        button2 = new com.raven.swing.Button();
+        btnUpdate = new com.raven.swing.Button();
         header1 = new com.raven.view.Header();
         idSession = new com.raven.swing.TextField();
         btnSearch = new com.raven.swing.Button();
+        btnReset = new com.raven.swing.Button();
 
         jFrame1.setMinimumSize(new java.awt.Dimension(356, 503));
 
@@ -142,11 +138,11 @@ public class ListSession extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã khoá đào tạo", "Niên khoá", "Ghi chú"
+                "Mã khoá đào tạo", "Niên khoá", "Ghi chú", "Chỉnh sửa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -179,13 +175,13 @@ public class ListSession extends javax.swing.JPanel {
             }
         });
 
-        button2.setBackground(new java.awt.Color(255, 237, 0));
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setText("Chỉnh sửa");
-        button2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(255, 237, 0));
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Chỉnh sửa");
+        btnUpdate.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -203,6 +199,16 @@ public class ListSession extends javax.swing.JPanel {
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnReset.setBackground(new java.awt.Color(51, 51, 255));
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
+        btnReset.setText("Đặt lại");
+        btnReset.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
             }
         });
 
@@ -227,12 +233,14 @@ public class ListSession extends javax.swing.JPanel {
                                     .addComponent(session, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(358, 358, 358)
+                                .addGap(274, 274, 274)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -250,8 +258,9 @@ public class ListSession extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -290,11 +299,63 @@ public class ListSession extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button2ActionPerformed
+        resetHelperText();
+        String idSession = this.idSession.getText();
+        String session = this.session.getText();
+        String note = this.note.getText();
+        boolean flag = true;
+        if (idSession.trim().equals("")) {
+            this.idSession.setHelperText("Không được bỏ trống mã khoá");
+            flag = false;
+        }
+        if (session.trim().equals("")) {
+            this.session.setHelperText("Không được bỏ trống niên khoá");
+            flag = false;
+        }
+        if (!flag) {
+            return;
+        }
+        int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có chắc cập nhật không??", "Cập nhật", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (responeADD == JOptionPane.YES_OPTION) {
+            try {
+                String sql = """
+                             BEGIN transaction
+                             UPDATE KHOA_DAO_TAO SET IDKhoaDaoTao=?,NienKhoa=?,GhiChu=?
+                             WHERE IDKhoaDaoTao=?
+                             commit""";
+                ConnectDatabase myConnection = new ConnectDatabase();
+                Connection conn = myConnection.openConnection();
+                PreparedStatement p = conn.prepareStatement(sql);
+                p.setString(1, idSession);
+                p.setString(2, session);
+                p.setString(3, note);
+                p.setString(4, idSession);
 
+                p.executeUpdate();
+                p.close();
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                DefaultTableModel model = (DefaultTableModel) tblSession.getModel();
+                model.setRowCount(0);
+                SessionDAO sessionDAO = new SessionDAO();
+                List<Session> sessionList = sessionDAO.getAll();
+                for (Session sessions : sessionList) {
+                    tblSession.addRow(new Object[]{sessions.getIdSession(), sessions.getSession(), sessions.getNote()});
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+
+            }
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        resetHelperText();
+
         String idSession = this.idSession.getText();
         String session = this.session.getText();
         String note = this.note.getText();
@@ -314,7 +375,7 @@ public class ListSession extends javax.swing.JPanel {
         if (responeADD == JOptionPane.YES_OPTION) {
             try {
                 String sql = "BEGIN transaction\n"
-                        + "INSERT INTO GIANG_VIEN (IDKhoa,TenKhoa,TruongKhoa)\n"
+                        + "INSERT INTO KHOA_DAO_TAO (IDKhoaDaoTao,NienKhoa,GhiChu)\n"
                         + "VALUES(?,?,?)\n"
                         + "commit";
                 ConnectDatabase myConnection = new ConnectDatabase();
@@ -337,6 +398,7 @@ public class ListSession extends javax.swing.JPanel {
 
             } catch (SQLException ex) {
                 Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
             }
         } else {
             return;
@@ -364,14 +426,27 @@ public class ListSession extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+    private void resetHelperText() {
+        idSession.setHelperText("");
+        session.setHelperText("");
+        note.setHelperText("");
+    }
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        idSession.setText("");
+        session.setText("");
+        note.setText("");
+
+    }//GEN-LAST:event_btnResetActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.view.Addstudent addstudent2;
     private com.raven.swing.Button btnAdd;
     private com.raven.swing.Button btnDelete;
+    private com.raven.swing.Button btnReset;
     private com.raven.swing.Button btnSearch;
-    private com.raven.swing.Button button2;
+    private com.raven.swing.Button btnUpdate;
     private com.raven.view.Header header1;
     private com.raven.swing.TextField idSession;
     private javax.swing.JFrame jFrame1;

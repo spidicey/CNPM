@@ -15,7 +15,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,8 +30,13 @@ import raven.cell.TableActionEvent;
 public class ListCommittee extends javax.swing.JPanel {
 
     private String selectedValue;
+    private JFrame parent;
 
-    public ListCommittee() {
+    public void setFram(JFrame a) {
+        this.parent = a;
+    }
+
+    public ListCommittee(JFrame parent) {
         initComponents();
         CommitteeDAO committeeDAO = new CommitteeDAO();
         List<Committee> committeeList = committeeDAO.getAll();
@@ -46,11 +55,11 @@ public class ListCommittee extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                if (tblCommittee.isEditing()) {
-                    tblCommittee.getCellEditor().stopCellEditing();
-                }
-                DefaultTableModel model = (DefaultTableModel) tblCommittee.getModel();
-                model.removeRow(row);
+//                if (tblCommittee.isEditing()) {
+//                    tblCommittee.getCellEditor().stopCellEditing();
+//                }
+//                DefaultTableModel model = (DefaultTableModel) tblCommittee.getModel();
+//                model.removeRow(row);
             }
 
             @Override
@@ -63,15 +72,43 @@ public class ListCommittee extends javax.swing.JPanel {
 
                     @Override
                     public void onDelete(int row) {
+                        System.out.println(row);
                         if (tblDetail.isEditing()) {
                             tblDetail.getCellEditor().stopCellEditing();
                         }
-                        DefaultTableModel model = (DefaultTableModel) tblDetail.getModel();
-                        model.removeRow(row);
+                        selectedValue = tblDetail.getModel().getValueAt(tblDetail.getSelectedRow(), 1).toString();
+                        System.out.println(selectedValue);
+                        String sql = "BEGIN transaction\n"
+                                + "Delete from CT_HOI_DONG where IDGiangVien=?\n"
+                                + "commit";
+                        int responeLogin = JOptionPane.showConfirmDialog(parent, "Bạn có chắc xoá không??", "Xoá", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (responeLogin == JOptionPane.YES_OPTION) {
+                            try {
+                                ConnectDatabase myConnection = new ConnectDatabase();
+                                Connection conn = myConnection.openConnection();
+                                PreparedStatement p = conn.prepareStatement(sql);
+                                p.setString(1, selectedValue);
+                                p.executeUpdate();
+                                p.close();
+                                JOptionPane.showMessageDialog(parent, "Xoá thành công");
+                                DefaultTableModel model = (DefaultTableModel) tblDetail.getModel();
+                                model.removeRow(tblDetail.getSelectedRow());
+                            } catch (SQLException ex) {
+                                Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(parent, "Xoá thất bại");
+
+                            }
+                        } else {
+                            return;
+                        }
                     }
 
                     @Override
                     public void onView(int row) {
+                        president.setVisible(true);
+                        comment.setVisible(true);
+                        members.setLabelText("Số thành viên");
+                        jLabel1.setText("Danh sách hội đồng");
                         DefaultTableModel model = (DefaultTableModel) tblDetail.getModel();
                         model.setRowCount(0);
                         spTable.setViewportView(tblCommittee);
@@ -81,14 +118,19 @@ public class ListCommittee extends javax.swing.JPanel {
                         }
                     }
                 };
+                president.setVisible(false);
+                comment.setVisible(false);
+                members.setLabelText("Mã giảng viên");
+                jLabel1.setText("Chi tiết hội đồng");
                 selectedValue = tblCommittee.getModel().getValueAt(tblCommittee.getSelectedRow(), 0).toString();
                 DefaultTableModel model = (DefaultTableModel) tblCommittee.getModel();
                 model.setRowCount(0);
                 DefaultTableModel model1 = (DefaultTableModel) tblDetail.getModel();
                 model1.setRowCount(0);
                 spTable.setViewportView(tblDetail);
-                tblDetail.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRender());
-                tblDetail.getColumnModel().getColumn(2).setCellEditor(new TableActionCellEditor(event1));
+                tblDetail.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
+                tblDetail.getColumnModel().getColumn(3).setCellEditor(new TableActionCellEditor(event1));
+
                 String sql = "{CALL SelectAllDetailCommittee(?)}";
                 ConnectDatabase myConnection = new ConnectDatabase();
                 Connection conn = myConnection.openConnection();
@@ -99,7 +141,7 @@ public class ListCommittee extends javax.swing.JPanel {
                             stmt.setString(1, selectedValue);
                             ResultSet rs = stmt.executeQuery();
                             while (rs.next()) {
-                                tblDetail.addRow(new Object[]{rs.getString("IDHoiDong"), rs.getString("TenGiangVien")});
+                                tblDetail.addRow(new Object[]{rs.getString("IDHoiDong"), rs.getString("IDGiangVien"), rs.getString("TenGiangVien")});
                             }
                         } catch (SQLException ex) {
                             ex.printStackTrace();
@@ -117,13 +159,14 @@ public class ListCommittee extends javax.swing.JPanel {
                 }
             }
         };
+
         for (Committee committee : committeeList) {
             tblCommittee.addRow(new Object[]{committee.getIdCommittee(), committee.getPresident(), committee.getMembers(), committee.getComment()});
         }
         tblCommittee.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
         tblCommittee.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -134,30 +177,30 @@ public class ListCommittee extends javax.swing.JPanel {
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel1 = new javax.swing.JLabel();
         header1 = new com.raven.view.Header();
-        button1 = new com.raven.swing.Button();
+        btnDelete = new com.raven.swing.Button();
         button2 = new com.raven.swing.Button();
-        button3 = new com.raven.swing.Button();
+        btnAdd = new com.raven.swing.Button();
         spTable = new javax.swing.JScrollPane();
         tblCommittee = new com.raven.swing.Table();
-        idTeacher = new com.raven.swing.TextField();
-        teacherName = new com.raven.swing.TextField();
-        idDepartment = new com.raven.swing.TextField();
-        email = new com.raven.swing.TextField();
+        idCommittee = new com.raven.swing.TextField();
+        president = new com.raven.swing.TextField();
+        comment = new com.raven.swing.TextField();
+        members = new com.raven.swing.TextField();
         btnSearch = new com.raven.swing.Button();
 
         tblDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã hội đồng", "Thành viên", "Action"
+                "Mã hội đồng", "Mã thành viên", "Thành viên", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -174,7 +217,7 @@ public class ListCommittee extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
-        jLabel1.setText("Danh sách giảng viên");
+        jLabel1.setText("Danh sách hội đồng");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -193,13 +236,13 @@ public class ListCommittee extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        button1.setBackground(new java.awt.Color(255, 0, 0));
-        button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setText("Xoá");
-        button1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(255, 0, 0));
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("Xoá");
+        btnDelete.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -213,13 +256,13 @@ public class ListCommittee extends javax.swing.JPanel {
             }
         });
 
-        button3.setBackground(new java.awt.Color(22, 255, 0));
-        button3.setForeground(new java.awt.Color(255, 255, 255));
-        button3.setText("Thêm");
-        button3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button3.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setBackground(new java.awt.Color(22, 255, 0));
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Thêm");
+        btnAdd.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button3ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -248,31 +291,31 @@ public class ListCommittee extends javax.swing.JPanel {
             tblCommittee.getColumnModel().getColumn(1).setPreferredWidth(150);
         }
 
-        idTeacher.setLabelText("Mã hội đồng");
-        idTeacher.addActionListener(new java.awt.event.ActionListener() {
+        idCommittee.setLabelText("Mã hội đồng");
+        idCommittee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idTeacherActionPerformed(evt);
+                idCommitteeActionPerformed(evt);
             }
         });
 
-        teacherName.setLabelText("Chủ tịch hội đồng");
-        teacherName.addActionListener(new java.awt.event.ActionListener() {
+        president.setLabelText("Chủ tịch hội đồng");
+        president.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                teacherNameActionPerformed(evt);
+                presidentActionPerformed(evt);
             }
         });
 
-        idDepartment.setLabelText("Nhận xét");
-        idDepartment.addActionListener(new java.awt.event.ActionListener() {
+        comment.setLabelText("Nhận xét");
+        comment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idDepartmentActionPerformed(evt);
+                commentActionPerformed(evt);
             }
         });
 
-        email.setLabelText("Số thành viên");
-        email.addActionListener(new java.awt.event.ActionListener() {
+        members.setLabelText("Số thành viên");
+        members.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailActionPerformed(evt);
+                membersActionPerformed(evt);
             }
         });
 
@@ -302,22 +345,22 @@ public class ListCommittee extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(idTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(teacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(idCommittee, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(president, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(comment, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(members, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 276, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelBorder1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -330,18 +373,18 @@ public class ListCommittee extends javax.swing.JPanel {
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idCommittee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(members, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(teacherName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(president, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(header1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -352,33 +395,188 @@ public class ListCommittee extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button1ActionPerformed
+        if (jLabel1.getText().equals("Danh sách hội đồng")) {
+            String selectedValue = tblCommittee.getModel().getValueAt(tblCommittee.getSelectedRow(), 0).toString();
+
+            System.out.println(selectedValue);
+            String sql = "BEGIN transaction\n"
+                    + "DELETE FROM HOI_DONG WHERE IDHoiDong=?\n"
+                    + "commit";
+            int responeLogin = JOptionPane.showConfirmDialog(this, "Bạn có chắc xoá không??", "Xoá", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (responeLogin == JOptionPane.YES_OPTION) {
+                try {
+                    ConnectDatabase myConnection = new ConnectDatabase();
+                    Connection conn = myConnection.openConnection();
+                    PreparedStatement p = conn.prepareStatement(sql);
+                    p.setString(1, selectedValue);
+                    p.executeUpdate();
+                    p.close();
+                    JOptionPane.showMessageDialog(this, "Xoá thành công");
+                    DefaultTableModel model = (DefaultTableModel) tblCommittee.getModel();
+                    model.removeRow(tblCommittee.getSelectedRow());
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xoá thất bại");
+
+                }
+            } else {
+                return;
+            }
+        } else {
+            String selectedValue = tblDetail.getModel().getValueAt(tblDetail.getSelectedRow(), 0).toString();
+
+            System.out.println(selectedValue);
+            String sql = "BEGIN transaction\n"
+                    + "DELETE FROM CT_HOI_DONG WHERE IDHoiDong=?\n"
+                    + "commit";
+            int responeLogin = JOptionPane.showConfirmDialog(this, "Bạn có chắc xoá không??", "Xoá", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (responeLogin == JOptionPane.YES_OPTION) {
+                try {
+                    ConnectDatabase myConnection = new ConnectDatabase();
+                    Connection conn = myConnection.openConnection();
+                    PreparedStatement p = conn.prepareStatement(sql);
+                    p.setString(1, selectedValue);
+                    p.executeUpdate();
+                    p.close();
+                    JOptionPane.showMessageDialog(this, "Xoá thành công");
+                    DefaultTableModel model = (DefaultTableModel) tblDetail.getModel();
+                    model.removeRow(tblDetail.getSelectedRow());
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Xoá thất bại");
+
+                }
+            } else {
+                return;
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_button2ActionPerformed
 
-    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button3ActionPerformed
+        if (jLabel1.getText().equals("Danh sách hội đồng")) {
+            String idCommittee = this.idCommittee.getText();
+            String president = this.president.getText();
+            String comment = this.comment.getText();
+            boolean flag = true;
+            if (idCommittee.trim().equals("")) {
+                this.idCommittee.setHelperText("Không được bỏ trống mã hội đồng");
+                flag = false;
+            }
+            if (president.trim().equals("")) {
+                this.president.setHelperText("Không được bỏ trống chủ tịch hội đồng");
+                flag = false;
+            }
+            if (this.members.getText().trim().equals("")) {
+                this.members.setHelperText("Không được bỏ trống số thành viên");
+                flag = false;
+            }
+            if (!flag) {
+                return;
+            }
+            int members = Integer.parseInt(this.members.getText());
+            int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có chắc thêm không??", "Thêm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (responeADD == JOptionPane.YES_OPTION) {
+                try {
+                    String sql = "BEGIN transaction\n"
+                            + "INSERT INTO HOI_DONG(IDHoiDong,ChuTichHoiDong,SoThanhVien,NhanXet)\n"
+                            + "VALUES(?,?,?,?)\n"
+                            + "commit";
+                    ConnectDatabase myConnection = new ConnectDatabase();
+                    Connection conn = myConnection.openConnection();
+                    PreparedStatement p = conn.prepareStatement(sql);
+                    p.setString(1, idCommittee);
+                    p.setString(2, president);
+                    p.setInt(3, members);
+                    p.setString(4, comment);
 
-    private void idTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTeacherActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idTeacherActionPerformed
+                    p.executeUpdate();
+                    p.close();
+                    JOptionPane.showMessageDialog(this, "Đã thêm thành công");
+                    DefaultTableModel model = (DefaultTableModel) tblCommittee.getModel();
+                    model.setRowCount(0);
+                    CommitteeDAO committeeDAO = new CommitteeDAO();
+                    List<Committee> committeeList = committeeDAO.getAll();
+                    for (Committee committee : committeeList) {
+                        tblCommittee.addRow(new Object[]{committee.getIdCommittee(), committee.getPresident(), committee.getMembers(), committee.getComment()});
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại");
 
-    private void idDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idDepartmentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idDepartmentActionPerformed
+                }
+            } else {
+                return;
+            }
+        } else {
+            String idCommittee1 = this.idCommittee.getText();
+            String idTeacher = this.members.getText();
+            boolean flag = true;
+            if (idCommittee1.trim().equals("")) {
+                this.idCommittee.setHelperText("Không được bỏ trống mã hội đồng");
+                flag = false;
+            }
+            if (this.members.getText().trim().equals("")) {
+                this.members.setHelperText("Không được bỏ trống mã giảng viên");
+                flag = false;
+            }
+            if (!flag) {
+                return;
+            }
+            int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có chắc thêm không??", "Thêm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (responeADD == JOptionPane.YES_OPTION) {
+                try {
+                    String sql = "BEGIN transaction\n"
+                            + "INSERT INTO CT_HOI_DONG(IDHoiDong,IDGiangVien)\n"
+                            + "VALUES(?,?)\n"
+                            + "commit";
+                    ConnectDatabase myConnection = new ConnectDatabase();
+                    Connection conn = myConnection.openConnection();
+                    PreparedStatement p = conn.prepareStatement(sql);
+                    p.setString(1, idCommittee1);
+                    p.setString(2, idTeacher);
 
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
+                    p.executeUpdate();
+                    p.close();
+                    sql = "SELECT GIANG_VIEN.TenGiangVien FROM CT_HOI_DONG,GIANG_VIEN WHERE CT_HOI_DONG.IDGiangVien=GIANG_VIEN.IDGiangVien AND CT_HOI_DONG.IDGiangVien=?";
+                    p = conn.prepareStatement(sql);
+                    p.setString(1, idTeacher);
+                    ResultSet rs = p.executeQuery();
+                    JOptionPane.showMessageDialog(this, "Đã thêm thành công");
+                    tblDetail.addRow(new Object[]{idCommittee1, idTeacher, rs.getString(1)});
 
-    private void teacherNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherNameActionPerformed
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+//                    JOptionPane.showMessageDialog(this, "Thêm thất bại");
+
+                }
+            } else {
+                return;
+            }
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void idCommitteeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idCommitteeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_teacherNameActionPerformed
+    }//GEN-LAST:event_idCommitteeActionPerformed
+
+    private void commentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_commentActionPerformed
+
+    private void membersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_membersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_membersActionPerformed
+
+    private void presidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_presidentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_presidentActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
@@ -397,21 +595,21 @@ public class ListCommittee extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.raven.swing.Button btnAdd;
+    private com.raven.swing.Button btnDelete;
     private com.raven.swing.Button btnSearch;
-    private com.raven.swing.Button button1;
     private com.raven.swing.Button button2;
-    private com.raven.swing.Button button3;
-    private com.raven.swing.TextField email;
+    private com.raven.swing.TextField comment;
     private com.raven.view.Header header1;
-    private com.raven.swing.TextField idDepartment;
-    private com.raven.swing.TextField idTeacher;
+    private com.raven.swing.TextField idCommittee;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.raven.swing.TextField members;
     private javax.swing.JLayeredPane panel;
     private com.raven.swing.PanelBorder panelBorder1;
+    private com.raven.swing.TextField president;
     private javax.swing.JScrollPane spTable;
     private com.raven.swing.Table tblCommittee;
     private com.raven.swing.Table tblDetail;
-    private com.raven.swing.TextField teacherName;
     // End of variables declaration//GEN-END:variables
 }

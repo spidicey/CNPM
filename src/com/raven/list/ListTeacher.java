@@ -1,11 +1,7 @@
 package com.raven.list;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.raven.DAO.TeacherDAO;
 import com.raven.conection.ConnectDatabase;
-import com.raven.model.ModelCardTeacher;
-import com.raven.model.ModelCard;
-import com.raven.model.StatusType;
 import com.raven.model.Teacher;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
@@ -15,11 +11,14 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import raven.cell.TableFillCellRender;
+import raven.cell.TableFillEditor;
+import raven.cell.TableFillEvent;
 
 public class ListTeacher extends javax.swing.JPanel {
 
@@ -28,6 +27,26 @@ public class ListTeacher extends javax.swing.JPanel {
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
+        TableFillEvent event = new TableFillEvent() {
+            @Override
+            public void fill(int row) {
+                TableModel model = tblTeacher.getModel();
+                Object[] rowData = new Object[model.getColumnCount()];
+                for (int i = 0; i < model.getColumnCount(); i++) {
+                    rowData[i] = model.getValueAt(row, i);
+                    System.out.println(rowData[i]);
+                }
+                idTeacher.setText((String) rowData[0]);
+                teacherName.setText((String) rowData[1]);
+                sex.setSelectedItem(rowData[2]);
+                email.setText((String) rowData[3]);
+                idDepartment.setSelectedItem(rowData[4]);
+                academic.setText((String) rowData[5]);
+                position.setText((String) rowData[6]);
+
+                System.out.println(row);
+            }
+        };
         tblTeacher.setAutoCreateRowSorter(true);
         TeacherDAO teacherDAO = new TeacherDAO();
         List<Teacher> teacherList = teacherDAO.getAll();
@@ -42,6 +61,8 @@ public class ListTeacher extends javax.swing.JPanel {
 //            table.addRow(new Object[]{"N20DCCN075", "Nguyễn Phước Duy Thịnh", "D20CQCN01", "Nam","Cà Mau" ,"2002","sdgwb@gmail.com",4.0});
             tblTeacher.addRow(new Object[]{teacher.getIdGiangVien(), teacher.getHoTen(), teacher.getGioiTinh(), teacher.getEmail(), teacher.getTenKhoa(), teacher.getHocVi(), teacher.getChucVu()});
         }
+        tblTeacher.getColumnModel().getColumn(7).setCellRenderer(new TableFillCellRender());
+        tblTeacher.getColumnModel().getColumn(7).setCellEditor(new TableFillEditor(event));
     }
 
     @SuppressWarnings("unchecked")
@@ -53,7 +74,7 @@ public class ListTeacher extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         header1 = new com.raven.view.Header();
         btnDelete = new com.raven.swing.Button();
-        button2 = new com.raven.swing.Button();
+        btnUpdate = new com.raven.swing.Button();
         btnAdd = new com.raven.swing.Button();
         spTable = new javax.swing.JScrollPane();
         tblTeacher = new com.raven.swing.Table();
@@ -65,6 +86,7 @@ public class ListTeacher extends javax.swing.JPanel {
         sex = new javax.swing.JComboBox<>();
         idDepartment = new javax.swing.JComboBox<>();
         btnSearch = new com.raven.swing.Button();
+        btnReset = new com.raven.swing.Button();
 
         setBackground(new java.awt.Color(204, 255, 255));
 
@@ -103,13 +125,13 @@ public class ListTeacher extends javax.swing.JPanel {
             }
         });
 
-        button2.setBackground(new java.awt.Color(255, 237, 0));
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setText("Chỉnh sửa");
-        button2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(255, 237, 0));
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Chỉnh sửa");
+        btnUpdate.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -130,11 +152,11 @@ public class ListTeacher extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã giảng viên", "Tên giảng viên", "Giới tính", "Email", "Khoa", "Học vị", "Chức vụ"
+                "Mã giảng viên", "Tên giảng viên", "Giới tính", "Email", "Khoa", "Học vị", "Chức vụ", "util"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,7 +170,9 @@ public class ListTeacher extends javax.swing.JPanel {
             tblTeacher.getColumnModel().getColumn(1).setPreferredWidth(150);
             tblTeacher.getColumnModel().getColumn(2).setPreferredWidth(20);
             tblTeacher.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tblTeacher.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblTeacher.getColumnModel().getColumn(4).setPreferredWidth(110);
+            tblTeacher.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tblTeacher.getColumnModel().getColumn(7).setPreferredWidth(5);
         }
 
         idTeacher.setLabelText("Mã giảng viên");
@@ -202,6 +226,16 @@ public class ListTeacher extends javax.swing.JPanel {
             }
         });
 
+        btnReset.setBackground(new java.awt.Color(51, 51, 255));
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
+        btnReset.setText("Đặt lại");
+        btnReset.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,7 +247,7 @@ public class ListTeacher extends javax.swing.JPanel {
                         .addComponent(position, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel)
+                        .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                         .addGap(259, 259, 259))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
@@ -230,12 +264,14 @@ public class ListTeacher extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 406, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,8 +305,9 @@ public class ListTeacher extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -281,11 +318,10 @@ public class ListTeacher extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String selectedValue = tblTeacher.getModel().getValueAt(tblTeacher.getSelectedRow(), 0).toString();
-
-        System.out.println(selectedValue);
-        String sql = "BEGIN transaction\n"
-                + "DELETE FROM GIANG_VIEN WHERE IDGiangVien=?\n"
-                + "commit";
+        String sql = """
+                     BEGIN transaction
+                     DELETE FROM GIANG_VIEN WHERE IDGiangVien=?
+                     commit""";
         int responeLogin = JOptionPane.showConfirmDialog(this, "Bạn có chắc xoá không??", "Xoá", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (responeLogin == JOptionPane.YES_OPTION) {
             try {
@@ -308,12 +344,83 @@ public class ListTeacher extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button2ActionPerformed
+        resetHelperText();
+        String idTeacher = this.idTeacher.getText();
+        String nameTeacher = this.teacherName.getText();
+        String sex = (String) this.sex.getSelectedItem();
+        String email = this.email.getText();
+        String idDepartment = (String) this.idDepartment.getSelectedItem();
+        String academic = this.academic.getText();
+        String position = this.position.getText();
+        boolean flag = true;
+        System.out.println(idTeacher + " " + nameTeacher);
+        if (idTeacher.trim().equals("")) {
+            this.idTeacher.setHelperText("Không được bỏ trống mã giảng viên");
+            flag = false;
+        }
+        if (nameTeacher.trim().equals("")) {
+            this.teacherName.setHelperText("Không được bỏ trống tên giảng viên");
+            flag = false;
+
+        }
+        if (email.trim().equals("")) {
+            this.email.setHelperText("Không được bỏ trống email");
+            flag = false;
+        }
+        if (academic.trim().equals("")) {
+            this.academic.setHelperText("Không được bỏ trống học vị");
+            flag = false;
+        }
+        if (position.trim().equals("")) {
+            this.position.setHelperText("Không được bỏ trống chức vụ");
+            flag = false;
+        }
+        if (!flag) {
+            return;
+        }
+        int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có chắc cập nhật không??", "Cập nhật", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (responeADD == JOptionPane.YES_OPTION) {
+            try {
+                String sql = "BEGIN transaction\n"
+                        + "UPDATE GIANG_VIEN set IDGiangVien=?,TenGiangVien=?,GioiTinh=?,Email=?,IDKhoa=?,HocVi=?,ChucVu=?\n"
+                        + "WHERE IDGiangVien=?\n"
+                        + "commit";
+                ConnectDatabase myConnection = new ConnectDatabase();
+                Connection conn = myConnection.openConnection();
+                PreparedStatement p = conn.prepareStatement(sql);
+                p.setString(1, idTeacher);
+                p.setString(2, nameTeacher);
+                p.setString(3, sex);
+                p.setString(4, email);
+                p.setString(5, idDepartment);
+                p.setString(6, academic);
+                p.setString(7, position);
+                p.setString(8, idTeacher);
+                p.executeUpdate();
+                p.close();
+                JOptionPane.showMessageDialog(this, "Đã cập nhật thành công");
+                DefaultTableModel model = (DefaultTableModel) tblTeacher.getModel();
+                model.setRowCount(0);
+                TeacherDAO teacherDAO = new TeacherDAO();
+                List<Teacher> teacherList = teacherDAO.getAll();
+                for (Teacher teacher : teacherList) {
+                    tblTeacher.addRow(new Object[]{teacher.getIdGiangVien(), teacher.getHoTen(), teacher.getGioiTinh(), teacher.getEmail(), teacher.getTenKhoa(), teacher.getHocVi(), teacher.getChucVu()});
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+            }
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        resetHelperText();
         String idTeacher = this.idTeacher.getText();
         String nameTeacher = this.teacherName.getText();
         String sex = (String) this.sex.getSelectedItem();
@@ -374,15 +481,25 @@ public class ListTeacher extends javax.swing.JPanel {
                 for (Teacher teacher : teacherList) {
                     tblTeacher.addRow(new Object[]{teacher.getIdGiangVien(), teacher.getHoTen(), teacher.getGioiTinh(), teacher.getEmail(), teacher.getTenKhoa(), teacher.getHocVi(), teacher.getChucVu()});
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+
             }
         } else {
             return;
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void resetHelperText() {
+        this.idTeacher.setHelperText("");
+        this.email.setHelperText("");
+        this.position.setHelperText("");
+        this.teacherName.setHelperText("");
+        this.academic.setHelperText("");
+    }
 
     private void idTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTeacherActionPerformed
         // TODO add your handling code here:
@@ -418,13 +535,23 @@ public class ListTeacher extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        idTeacher.setText("");
+        teacherName.setText("");
+        email.setText("");
+        academic.setText("");
+        position.setText("");
+    }//GEN-LAST:event_btnResetActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.swing.TextField academic;
     private com.raven.swing.Button btnAdd;
     private com.raven.swing.Button btnDelete;
+    private com.raven.swing.Button btnReset;
     private com.raven.swing.Button btnSearch;
-    private com.raven.swing.Button button2;
+    private com.raven.swing.Button btnUpdate;
     private com.raven.swing.TextField email;
     private com.raven.view.Header header1;
     private javax.swing.JComboBox<String> idDepartment;

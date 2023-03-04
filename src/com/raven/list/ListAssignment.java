@@ -1,19 +1,13 @@
 package com.raven.list;
 
 import com.raven.DAO.AssignmentDAO;
-import com.raven.DAO.TypeTrainningDAO;
-import com.raven.controller.btnDelete;
 import com.raven.model.Assignment;
-import com.raven.model.TypeTrainning;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-import raven.cell.TableActionCellEditor;
-import raven.cell.TableActionCellRender;
-import raven.cell.TableActionEvent;
 
 public class ListAssignment extends javax.swing.JPanel {
 
@@ -219,8 +213,7 @@ public class ListAssignment extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        btnDelete tblDelete = new btnDelete();
-        tblDelete.btnDelete(tblAssignment);
+        
 //        DefaultTableModel tblModel = (DefaultTableModel) tblListStudent.getModel();
 //        if(tblListStudent.getSelectedRowCount()==1){
 //            tblModel.removeRow(tblListStudent.getSelectedRow());

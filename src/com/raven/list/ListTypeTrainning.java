@@ -1,10 +1,7 @@
 package com.raven.list;
 
-import com.raven.DAO.TeacherDAO;
 import com.raven.DAO.TypeTrainningDAO;
 import com.raven.conection.ConnectDatabase;
-import com.raven.controller.btnDelete;
-import com.raven.model.Teacher;
 import com.raven.model.TypeTrainning;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
@@ -18,15 +15,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-import raven.cell.TableActionCellEditor;
-import raven.cell.TableActionCellRender;
-import raven.cell.TableActionEvent;
+import javax.swing.table.TableModel;
+import raven.cell.TableFillCellRender;
+import raven.cell.TableFillEditor;
+import raven.cell.TableFillEvent;
 
 public class ListTypeTrainning extends javax.swing.JPanel {
 
     public ListTypeTrainning() {
         initComponents();
         //  add row table
+        TableFillEvent event = new TableFillEvent() {
+            @Override
+            public void fill(int row) {
+                TableModel model = tblTypeTrainning.getModel();
+                Object[] rowData = new Object[model.getColumnCount()];
+                for (int i = 0; i < model.getColumnCount(); i++) {
+                    rowData[i] = model.getValueAt(row, i);
+                    System.out.println(rowData[i]);
+                }
+                idTypeTrainning.setText((String) rowData[0]);
+                nameTypeTrainning.setText((String) rowData[1]);
+                System.out.println(row);
+            }
+        };
         TypeTrainningDAO typeTrainningDAO = new TypeTrainningDAO();
         List<TypeTrainning> typeTrainningList = typeTrainningDAO.getAll();
         spTable.setVerticalScrollBar(new ScrollBar());
@@ -38,19 +50,8 @@ public class ListTypeTrainning extends javax.swing.JPanel {
         for (TypeTrainning typeTrainning : typeTrainningList) {
             tblTypeTrainning.addRow(new Object[]{typeTrainning.getIdTypeTrainning(), typeTrainning.getNameTypeTrainning()});
         }
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+        tblTypeTrainning.getColumnModel().getColumn(2).setCellRenderer(new TableFillCellRender());
+        tblTypeTrainning.getColumnModel().getColumn(2).setCellEditor(new TableFillEditor(event));
     }
 
     @SuppressWarnings("unchecked")
@@ -67,9 +68,10 @@ public class ListTypeTrainning extends javax.swing.JPanel {
         tblTypeTrainning = new com.raven.swing.Table();
         btnAdd = new com.raven.swing.Button();
         btnDelete = new com.raven.swing.Button();
-        button2 = new com.raven.swing.Button();
+        btnUpdate = new com.raven.swing.Button();
         header1 = new com.raven.view.Header();
         btnSearch = new com.raven.swing.Button();
+        btnReset = new com.raven.swing.Button();
 
         jFrame1.setMinimumSize(new java.awt.Dimension(356, 503));
 
@@ -130,11 +132,11 @@ public class ListTypeTrainning extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã hệ đào tạo", "Tên hệ đào tạo"
+                "Mã hệ đào tạo", "Tên hệ đào tạo", "Chỉnh sửa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -167,13 +169,13 @@ public class ListTypeTrainning extends javax.swing.JPanel {
             }
         });
 
-        button2.setBackground(new java.awt.Color(255, 237, 0));
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setText("Chỉnh sửa");
-        button2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(255, 237, 0));
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Chỉnh sửa");
+        btnUpdate.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -184,6 +186,16 @@ public class ListTypeTrainning extends javax.swing.JPanel {
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnReset.setBackground(new java.awt.Color(51, 51, 255));
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
+        btnReset.setText("Đặt lại");
+        btnReset.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
             }
         });
 
@@ -212,11 +224,13 @@ public class ListTypeTrainning extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(42, 42, 42)))))
                         .addGap(0, 3, Short.MAX_VALUE))))
         );
@@ -233,8 +247,9 @@ public class ListTypeTrainning extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -272,12 +287,14 @@ public class ListTypeTrainning extends javax.swing.JPanel {
             return;
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+    private void resetHelperText() {
+        this.idTypeTrainning.setHelperText("");
+        this.nameTypeTrainning.setHelperText("");
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    }
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button2ActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        resetHelperText();
         String idTypeTrainning = this.idTypeTrainning.getText();
         String nameTypeTrainning = this.nameTypeTrainning.getText();
         boolean flag = true;
@@ -289,14 +306,63 @@ public class ListTypeTrainning extends javax.swing.JPanel {
             this.nameTypeTrainning.setHelperText("Không được bỏ trống tên hệ đào tạo");
             flag = false;
         }
-        if (!flag)
+        if (!flag) {
             return;
-        
+        }
+        int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có chắc cập nhật không??", "Cập nhật", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (responeADD == JOptionPane.YES_OPTION) {
+            try {
+                String sql = """
+                             BEGIN transaction
+                             UPDATE HE_DAO_TAO set IDHeDaoTao=?,TenHeDaoTao=?
+                             where IDHeDaoTao=?
+                             commit""";
+                ConnectDatabase myConnection = new ConnectDatabase();
+                Connection conn = myConnection.openConnection();
+                PreparedStatement p = conn.prepareStatement(sql);
+                p.setString(1, idTypeTrainning);
+                p.setString(2, nameTypeTrainning);
+                p.setString(3, idTypeTrainning);
+                p.executeUpdate();
+                p.close();
+                JOptionPane.showMessageDialog(this, "Đã cập nhật thành công");
+                DefaultTableModel model = (DefaultTableModel) tblTypeTrainning.getModel();
+                model.setRowCount(0);
+                TypeTrainningDAO typeTrainningDAO = new TypeTrainningDAO();
+                List<TypeTrainning> typeTrainningList = typeTrainningDAO.getAll();
+                for (TypeTrainning typeTrainning : typeTrainningList) {
+                    tblTypeTrainning.addRow(new Object[]{typeTrainning.getIdTypeTrainning(), typeTrainning.getNameTypeTrainning()});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        resetHelperText();
+        String idTypeTrainning = this.idTypeTrainning.getText();
+        String nameTypeTrainning = this.nameTypeTrainning.getText();
+        boolean flag = true;
+        if (idTypeTrainning.trim().equals("")) {
+            this.idTypeTrainning.setHelperText("Không được bỏ trống mã hệ đào tạo");
+            flag = false;
+        }
+        if (nameTypeTrainning.trim().equals("")) {
+            this.nameTypeTrainning.setHelperText("Không được bỏ trống tên hệ đào tạo");
+            flag = false;
+        }
+        if (!flag) {
+            return;
+        }
+
         int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có chắc thêm không??", "Thêm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (responeADD == JOptionPane.YES_OPTION) {
             try {
                 String sql = "BEGIN transaction\n"
-                        + "INSERT INTO GIANG_VIEN (IDHeDaoTao,TenHeDaoTao)\n"
+                        + "INSERT INTO HE_DAO_TAO (IDHeDaoTao,TenHeDaoTao)\n"
                         + "VALUES(?,?)\n"
                         + "commit";
                 ConnectDatabase myConnection = new ConnectDatabase();
@@ -340,13 +406,21 @@ public class ListTypeTrainning extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        idTypeTrainning.setText("");
+        nameTypeTrainning.setText("");
+
+    }//GEN-LAST:event_btnResetActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.view.Addstudent addstudent2;
     private com.raven.swing.Button btnAdd;
     private com.raven.swing.Button btnDelete;
+    private com.raven.swing.Button btnReset;
     private com.raven.swing.Button btnSearch;
-    private com.raven.swing.Button button2;
+    private com.raven.swing.Button btnUpdate;
     private com.raven.view.Header header1;
     private com.raven.swing.TextField idTypeTrainning;
     private javax.swing.JFrame jFrame1;

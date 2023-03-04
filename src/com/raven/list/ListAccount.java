@@ -1,13 +1,8 @@
 package com.raven.list;
 
 import com.raven.DAO.AccountDAO;
-import com.raven.DAO.ClassNameDAO;
-import com.raven.DAO.SessionDAO;
 import com.raven.conection.ConnectDatabase;
-import com.raven.controller.btnDelete;
 import com.raven.model.Account;
-import com.raven.model.ClassName;
-import com.raven.model.Session;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
 import java.sql.Connection;
@@ -20,15 +15,32 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import raven.cell.TableFillCellRender;
+import raven.cell.TableFillEditor;
+import raven.cell.TableFillEvent;
 
 public class ListAccount extends javax.swing.JPanel {
 
     public ListAccount() {
         initComponents();
-//        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
-//        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
-        //  add row table
 
+        TableFillEvent event = new TableFillEvent() {
+            @Override
+            public void fill(int row) {
+                TableModel model = tblAccount.getModel();
+                Object[] rowData = new Object[model.getColumnCount()];
+                for (int i = 0; i < model.getColumnCount(); i++) {
+                    rowData[i] = model.getValueAt(row, i);
+                    System.out.println(rowData[i]);
+                }
+                userName.setText((String) rowData[0]);
+                password.setText((String) rowData[1]);
+                role.setText(Integer.toString((int) rowData[2]));
+
+                System.out.println(row);
+            }
+        };
         spTable.setVerticalScrollBar(new ScrollBar());
         spTable.getVerticalScrollBar().setBackground(Color.WHITE);
         spTable.getViewport().setBackground(Color.WHITE);
@@ -40,19 +52,8 @@ public class ListAccount extends javax.swing.JPanel {
         for (Account account : accountList) {
             tblAccount.addRow(new Object[]{account.getUserName(), account.getPassword(), account.getRole()});
         }
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
+        tblAccount.getColumnModel().getColumn(3).setCellRenderer(new TableFillCellRender());
+        tblAccount.getColumnModel().getColumn(3).setCellEditor(new TableFillEditor(event));
     }
 
     @SuppressWarnings("unchecked")
@@ -69,10 +70,11 @@ public class ListAccount extends javax.swing.JPanel {
         tblAccount = new com.raven.swing.Table();
         btnAdd = new com.raven.swing.Button();
         btnDelete = new com.raven.swing.Button();
-        button2 = new com.raven.swing.Button();
+        btnUpdate = new com.raven.swing.Button();
         header1 = new com.raven.view.Header();
         userName = new com.raven.swing.TextField();
         btnSearch = new com.raven.swing.Button();
+        btnReset = new com.raven.swing.Button();
 
         jFrame1.setMinimumSize(new java.awt.Dimension(356, 503));
 
@@ -133,11 +135,11 @@ public class ListAccount extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tên đăng nhập", "Password", "Quyền"
+                "Tên đăng nhập", "Password", "Quyền", "Chỉnh sửa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -171,13 +173,13 @@ public class ListAccount extends javax.swing.JPanel {
             }
         });
 
-        button2.setBackground(new java.awt.Color(255, 237, 0));
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setText("Chỉnh sửa");
-        button2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(255, 237, 0));
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Chỉnh sửa");
+        btnUpdate.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -195,6 +197,16 @@ public class ListAccount extends javax.swing.JPanel {
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnReset.setBackground(new java.awt.Color(51, 51, 255));
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
+        btnReset.setText("Đặt lại");
+        btnReset.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
             }
         });
 
@@ -219,12 +231,14 @@ public class ListAccount extends javax.swing.JPanel {
                                     .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(358, 358, 358)
+                                .addGap(274, 274, 274)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -242,8 +256,9 @@ public class ListAccount extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -282,11 +297,66 @@ public class ListAccount extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button2ActionPerformed
+        resetHelperText();
+        String userName = this.userName.getText();
+        String password = this.password.getText();
+        boolean flag = true;
+        if (userName.trim().equals("")) {
+            this.userName.setHelperText("Không được bỏ trống tên tài khoản");
+            flag = false;
+        }
+        if (password.trim().equals("")) {
+            this.password.setHelperText("Không được bỏ trống mật khẩu");
+            flag = false;
+        }
+        if (this.role.getText().trim().equals("")) {
+            this.role.setHelperText("Không được bỏ trống quyền");
+            flag = false;
+        }
+        if (!flag) {
+            return;
+        }
+        int role = Integer.parseInt(this.role.getText());
+        int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?", "Thêm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (responeADD == JOptionPane.YES_OPTION) {
+            try {
+                String sql = """
+                             BEGIN transaction
+                             UPDATE TAI_KHOAN set UserName=?,Password=?,IDQuyen=?
+                             WHERE UserName=?
+                             commit""";
+                ConnectDatabase myConnection = new ConnectDatabase();
+                Connection conn = myConnection.openConnection();
+                PreparedStatement p = conn.prepareStatement(sql);
+                p.setString(1, userName);
+                p.setString(2, password);
+                p.setInt(3, role);
+                p.setString(4, userName);
+                p.executeUpdate();
+                p.close();
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                DefaultTableModel model = (DefaultTableModel) tblAccount.getModel();
+                model.setRowCount(0);
+                AccountDAO accountDAO = new AccountDAO();
+                List<Account> accountList = accountDAO.getAll();
+                for (Account account : accountList) {
+                    tblAccount.addRow(new Object[]{account.getUserName(), account.getPassword(), account.getRole()});
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+
+            }
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        resetHelperText();
         String userName = this.userName.getText();
         String password = this.password.getText();
         boolean flag = true;
@@ -360,14 +430,28 @@ public class ListAccount extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+    private void resetHelperText() {
+        userName.setHelperText("");
+        password.setHelperText("");
+        role.setHelperText("");
+    }
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        resetHelperText();
+        userName.setText("");
+        password.setText("");
+        role.setText("");
+
+    }//GEN-LAST:event_btnResetActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.view.Addstudent addstudent2;
     private com.raven.swing.Button btnAdd;
     private com.raven.swing.Button btnDelete;
+    private com.raven.swing.Button btnReset;
     private com.raven.swing.Button btnSearch;
-    private com.raven.swing.Button button2;
+    private com.raven.swing.Button btnUpdate;
     private com.raven.view.Header header1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;

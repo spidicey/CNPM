@@ -1,13 +1,8 @@
 package com.raven.list;
 
 import com.raven.DAO.DepartmentDAO;
-import com.raven.DAO.TeacherDAO;
-import com.raven.DAO.TypeTrainningDAO;
 import com.raven.conection.ConnectDatabase;
-import com.raven.controller.btnDelete;
 import com.raven.model.Department;
-import com.raven.model.Teacher;
-import com.raven.model.TypeTrainning;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
 import java.sql.Connection;
@@ -20,9 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-import raven.cell.TableActionCellEditor;
-import raven.cell.TableActionCellRender;
-import raven.cell.TableActionEvent;
 
 public class ListDepartment extends javax.swing.JPanel {
 

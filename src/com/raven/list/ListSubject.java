@@ -38,7 +38,7 @@ import java.util.zip.ZipOutputStream;
 
 public class ListSubject extends JPanel {
 
-    public JFrame parent;
+    private JFrame parent;
 
     public void setFram(JFrame a) {
         this.parent = a;
