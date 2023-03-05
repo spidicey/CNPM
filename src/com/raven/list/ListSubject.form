@@ -22,52 +22,57 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="650" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="position" min="-2" pref="230" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="panel" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="spTable" max="32767" attributes="0"/>
+                  <Component id="panelBorder1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="header1" alignment="1" pref="0" max="32767" attributes="0"/>
-                          <Component id="idTeacher" alignment="1" pref="230" max="32767" attributes="0"/>
-                          <Component id="teacherName" alignment="1" pref="230" max="32767" attributes="0"/>
-                          <Component id="sex" alignment="1" pref="230" max="32767" attributes="0"/>
+                          <Component id="insMark" alignment="1" pref="230" max="32767" attributes="0"/>
+                          <Component id="idInsTeacher" alignment="1" pref="230" max="32767" attributes="0"/>
+                          <Component id="idSubject" alignment="0" pref="230" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSearch" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="0" pref="406" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="btnReset" min="-2" pref="78" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnAdd" min="-2" pref="78" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnDelete" min="-2" pref="78" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="button2" min="-2" pref="78" max="-2" attributes="0"/>
+                              <Component id="btnUpdate" min="-2" pref="78" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="email" min="-2" pref="230" max="-2" attributes="0"/>
-                                  <Component id="academic" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                  <Component id="idDepartment" min="-2" pref="230" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="idThesisTeacher" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="nameSubject" alignment="0" pref="230" max="32767" attributes="0"/>
+                                  <Component id="thesisMark" alignment="0" pref="230" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
+                                      <Component id="panel" pref="-6" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="idCommittee" min="-2" pref="230" max="-2" attributes="0"/>
+                                          <Component id="idStudent" min="-2" pref="230" max="-2" attributes="0"/>
+                                          <Component id="committeeMark" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="panelBorder1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -80,28 +85,31 @@
               <Component id="panel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="idTeacher" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="position" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nameSubject" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="idSubject" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="idStudent" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="teacherName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idDepartment" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
+                  <Component id="idInsTeacher" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="idThesisTeacher" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="idCommittee" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="academic" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="sex" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
+                  <Component id="thesisMark" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="insMark" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="committeeMark" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="header1" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                       <Component id="btnAdd" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="btnDelete" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="button2" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnUpdate" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="btnSearch" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnReset" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -158,7 +166,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="7f" green="7f" red="7f" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch gi&#x1ea3;ng vi&#xea;n"/>
+            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch &#x111;&#x1ec1; t&#xe0;i"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -182,7 +190,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.Button" name="button2">
+    <Component class="com.raven.swing.Button" name="btnUpdate">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="ed" red="ff" type="rgb"/>
@@ -196,7 +204,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
       </Events>
     </Component>
     <Component class="com.raven.swing.Button" name="btnAdd">
@@ -231,7 +239,7 @@
         <Component class="com.raven.swing.Table" name="tblSubject">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="11" rowCount="0">
+              <Table columnCount="12" rowCount="0">
                 <Column editable="false" title="T&#xea;n &#x111;&#x1ec1; t&#xe0;i" type="java.lang.Object"/>
                 <Column editable="false" title="Sinh vi&#xea;n th&#x1ef1;c hi&#x1ec7;n" type="java.lang.Object"/>
                 <Column editable="true" title="B&#x1ea3;n m&#x1ec1;m &#x111;&#x1ed3; &#xe1;n" type="java.lang.Object"/>
@@ -243,6 +251,7 @@
                 <Column editable="false" title="H&#x1ed9;i &#x111;&#x1ed3;ng " type="java.lang.Object"/>
                 <Column editable="false" title="&#x110;i&#x1ec3;m h&#x1ed9;i d&#x1ed3;ng" type="java.lang.Object"/>
                 <Column editable="false" title="Nh&#x1ead;n x&#xe9;t" type="java.lang.Object"/>
+                <Column editable="true" title="Ch&#x1ec9;nh s&#x1eed;a" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -302,6 +311,11 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
               </TableColumnModel>
             </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -311,76 +325,45 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="com.raven.swing.TextField" name="idTeacher">
+    <Component class="com.raven.swing.TextField" name="insMark">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="M&#xe3; gi&#x1ea3;ng vi&#xea;n"/>
+        <Property name="labelText" type="java.lang.String" value="&#x110;i&#x1ec3;m h&#x1b0;&#x1edb;ng d&#x1eab;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idTeacherActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insMarkActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="teacherName">
+    <Component class="com.raven.swing.TextField" name="idInsTeacher">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="T&#xea;n gi&#x1ea3;ng vi&#xea;n"/>
+        <Property name="labelText" type="java.lang.String" value="M&#xe3; gi&#x1ea3;ng vi&#xea;n h&#x1b0;&#x1edb;ng d&#x1eab;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="teacherNameActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idInsTeacherActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="email">
+    <Component class="com.raven.swing.TextField" name="nameSubject">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="Email"/>
+        <Property name="labelText" type="java.lang.String" value="T&#xea;n &#x111;&#x1ec1; t&#xe0;i"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emailActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameSubjectActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="academic">
+    <Component class="com.raven.swing.TextField" name="thesisMark">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="H&#x1ecd;c v&#x1ecb;"/>
+        <Property name="labelText" type="java.lang.String" value="&#x110;i&#x1ec3;m ph&#x1ea3;n bi&#x1ec7;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="academicActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="thesisMarkActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="position">
+    <Component class="com.raven.swing.TextField" name="idStudent">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="Ch&#x1ee9;c v&#x1ee5;"/>
+        <Property name="labelText" type="java.lang.String" value="M&#xe3; sinh vi&#xea;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="positionActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idStudentActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="sex">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Nam"/>
-            <StringItem index="1" value="N&#x1eef;"/>
-          </StringArray>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="idDepartment">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="ATTT"/>
-            <StringItem index="1" value="CNTT"/>
-            <StringItem index="2" value="DPT"/>
-            <StringItem index="3" value="DT"/>
-            <StringItem index="4" value="VT"/>
-          </StringArray>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="com.raven.swing.Button" name="btnSearch">
       <Properties>
@@ -397,6 +380,55 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="com.raven.swing.Button" name="btnReset">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t l&#x1ea1;i"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="SansSerif" size="14" style="1"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="com.raven.swing.TextField" name="idSubject">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="M&#xe3; &#x111;&#x1ec1; t&#xe0;i"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idSubjectActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="com.raven.swing.TextField" name="idThesisTeacher">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="M&#xe3; gi&#x1ea3;ng vi&#xea;n ph&#x1ea3;n bi&#x1ec7;n"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idThesisTeacherActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="com.raven.swing.TextField" name="idCommittee">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="M&#xe3; h&#x1ed9;i &#x111;&#x1ed3;ng"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idCommitteeActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="com.raven.swing.TextField" name="committeeMark">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="&#x110;i&#x1ec3;m h&#x1ed9;i &#x111;&#x1ed3;ng"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="committeeMarkActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

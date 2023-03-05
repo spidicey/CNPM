@@ -15,12 +15,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import raven.cell.TableFillCellRender;
+import raven.cell.TableFillEditor;
+import raven.cell.TableFillEvent;
 
 public class ListDepartment extends javax.swing.JPanel {
 
     public ListDepartment() {
         initComponents();
-        //  add row table
+        TableFillEvent event = new TableFillEvent() {
+            @Override
+            public void fill(int row) {
+                TableModel model = tblDepartment.getModel();
+                Object[] rowData = new Object[model.getColumnCount()];
+                for (int i = 0; i < model.getColumnCount(); i++) {
+                    rowData[i] = model.getValueAt(row, i);
+                    System.out.println(rowData[i]);
+                }
+                idDepartment.setText((String) rowData[0]);
+                nameDepartment.setText((String) rowData[1]);
+                president.setText((String) rowData[2]);
+                System.out.println(row);
+            }
+        };
         DepartmentDAO departmentDAO = new DepartmentDAO();
         List<Department> departmentList = departmentDAO.getAll();
         spTable.setVerticalScrollBar(new ScrollBar());
@@ -32,20 +50,9 @@ public class ListDepartment extends javax.swing.JPanel {
         for (Department department : departmentList) {
             tblDepartment.addRow(new Object[]{department.getIdDepartment(), department.getNameDepartment(), department.getPresident()});
         }
+        tblDepartment.getColumnModel().getColumn(3).setCellRenderer(new TableFillCellRender());
+        tblDepartment.getColumnModel().getColumn(3).setCellEditor(new TableFillEditor(event));
 
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
-//        table.addRow(new Object[]{"Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018", StatusType.APPROVED});
-//        table.addRow(new Object[]{"Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018", StatusType.REJECT});
-//        table.addRow(new Object[]{"Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018", StatusType.PENDING});
     }
 
     @SuppressWarnings("unchecked")
@@ -62,10 +69,11 @@ public class ListDepartment extends javax.swing.JPanel {
         tblDepartment = new com.raven.swing.Table();
         btnAdd = new com.raven.swing.Button();
         btnDelete = new com.raven.swing.Button();
-        button2 = new com.raven.swing.Button();
+        btnUpdate = new com.raven.swing.Button();
         header1 = new com.raven.view.Header();
         btnSearch = new com.raven.swing.Button();
         idDepartment = new com.raven.swing.TextField();
+        btnReset = new com.raven.swing.Button();
 
         jFrame1.setMinimumSize(new java.awt.Dimension(356, 503));
 
@@ -126,11 +134,11 @@ public class ListDepartment extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã khoa", "Tên khoa", "Trưởng Khoa"
+                "Mã khoa", "Tên khoa", "Trưởng Khoa", "Chỉnh sửa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -163,13 +171,13 @@ public class ListDepartment extends javax.swing.JPanel {
             }
         });
 
-        button2.setBackground(new java.awt.Color(255, 237, 0));
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setText("Chỉnh sửa");
-        button2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(255, 237, 0));
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Chỉnh sửa");
+        btnUpdate.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -187,6 +195,16 @@ public class ListDepartment extends javax.swing.JPanel {
         idDepartment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idDepartmentActionPerformed(evt);
+            }
+        });
+
+        btnReset.setBackground(new java.awt.Color(51, 51, 255));
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
+        btnReset.setText("Đặt lại");
+        btnReset.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
             }
         });
 
@@ -208,11 +226,13 @@ public class ListDepartment extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)))
                         .addGap(0, 3, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -241,8 +261,9 @@ public class ListDepartment extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -281,11 +302,61 @@ public class ListDepartment extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button2ActionPerformed
+        resetHelperText();
+        String idDepartment = this.idDepartment.getText();
+        String nameDepartment = this.nameDepartment.getText();
+        String president = this.president.getText();
+        boolean flag = true;
+        if (idDepartment.trim().equals("")) {
+            this.idDepartment.setHelperText("Không được bỏ trống mã khoa");
+            flag = false;
+        }
+        if (nameDepartment.trim().equals("")) {
+            this.nameDepartment.setHelperText("Không được bỏ trống tên khoa");
+            flag = false;
+        }
+        if (!flag) {
+            return;
+        }
+        int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật không?", "Thêm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (responeADD == JOptionPane.YES_OPTION) {
+            try {
+                String sql = """
+                             BEGIN transaction
+                             UPDATE KHOA SET IDKhoa=?,TenKhoa=?,TruongKhoa=?
+                             WHERE IDKhoa=?
+                             commit""";
+                ConnectDatabase myConnection = new ConnectDatabase();
+                Connection conn = myConnection.openConnection();
+                PreparedStatement p = conn.prepareStatement(sql);
+                p.setString(1, idDepartment);
+                p.setString(2, nameDepartment);
+                p.setString(3, president);
+                p.setString(4, idDepartment);
+                p.executeUpdate();
+                p.close();
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                DefaultTableModel model = (DefaultTableModel) tblDepartment.getModel();
+                model.setRowCount(0);
+
+                DepartmentDAO departmentDAO = new DepartmentDAO();
+                List<Department> departmentList = departmentDAO.getAll();
+                for (Department department : departmentList) {
+                    tblDepartment.addRow(new Object[]{department.getIdDepartment(), department.getNameDepartment(), department.getPresident()});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+            }
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        resetHelperText();
         String idDepartment = this.idDepartment.getText();
         String nameDepartment = this.nameDepartment.getText();
         String president = this.president.getText();
@@ -305,7 +376,7 @@ public class ListDepartment extends javax.swing.JPanel {
         if (responeADD == JOptionPane.YES_OPTION) {
             try {
                 String sql = "BEGIN transaction\n"
-                        + "INSERT INTO GIANG_VIEN (IDKhoa,TenKhoa,TruongKhoa)\n"
+                        + "INSERT INTO KHOA (IDKhoa,TenKhoa,TruongKhoa)\n"
                         + "VALUES(?,?,?)\n"
                         + "commit";
                 ConnectDatabase myConnection = new ConnectDatabase();
@@ -354,14 +425,28 @@ public class ListDepartment extends javax.swing.JPanel {
     private void idDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idDepartmentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idDepartmentActionPerformed
+    private void resetHelperText() {
+        idDepartment.setHelperText("");
+        nameDepartment.setHelperText("");
+        president.setHelperText("");
+    }
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        resetHelperText();
+        idDepartment.setText("");
+        nameDepartment.setText("");
+        president.setText("");
+
+    }//GEN-LAST:event_btnResetActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.view.Addstudent addstudent2;
     private com.raven.swing.Button btnAdd;
     private com.raven.swing.Button btnDelete;
+    private com.raven.swing.Button btnReset;
     private com.raven.swing.Button btnSearch;
-    private com.raven.swing.Button button2;
+    private com.raven.swing.Button btnUpdate;
     private com.raven.view.Header header1;
     private com.raven.swing.TextField idDepartment;
     private javax.swing.JFrame jFrame1;

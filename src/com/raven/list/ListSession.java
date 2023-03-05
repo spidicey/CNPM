@@ -38,7 +38,7 @@ public class ListSession extends javax.swing.JPanel {
                 }
                 idSession.setText((String) rowData[0]);
                 session.setText((String) rowData[1]);
-                note.setText((String) rowData[3]);
+                note.setText((String) rowData[2]);
 
                 System.out.println(row);
             }
