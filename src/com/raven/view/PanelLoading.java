@@ -1,5 +1,6 @@
 package com.raven.view;
 
+import com.raven.model.Account;
 import com.raven.model.ModelUser;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,11 +26,16 @@ public class PanelLoading extends javax.swing.JLayeredPane {
     }
 
     private final Animator animator;
+
+    public Account getAcc() {
+        return acc;
+    }
     private boolean slideLeft;
     private float animate;
     private boolean isMessage;
     private ModelUser data;
-
+    private Account acc;
+    
     public PanelLoading() {
         initComponents();
         loading.setVisible(true);
@@ -287,6 +293,10 @@ public class PanelLoading extends javax.swing.JLayeredPane {
 //            }
         }
     }//GEN-LAST:event_cmdEditActionPerformed
+
+    public void setAcc(Account acc) {
+        this.acc = acc;
+    }
 
     @Override
     public void paint(Graphics grphcs) {

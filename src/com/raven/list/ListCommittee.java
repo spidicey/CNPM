@@ -32,13 +32,15 @@ public class ListCommittee extends javax.swing.JPanel {
 
     private String selectedValue;
     private JFrame parent;
+    private int role;
 
     public void setFram(JFrame a) {
         this.parent = a;
     }
 
-    public ListCommittee(JFrame parent) {
+    public ListCommittee(JFrame parent, int role) {
         initComponents();
+        this.role = role;
         CommitteeDAO committeeDAO = new CommitteeDAO();
         List<Committee> committeeList = committeeDAO.getAll();
         spTable.setVerticalScrollBar(new ScrollBar());
@@ -429,6 +431,15 @@ public class ListCommittee extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+                            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         if (jLabel1.getText().equals("Danh sách hội đồng")) {
             String selectedValue = tblCommittee.getModel().getValueAt(tblCommittee.getSelectedRow(), 0).toString();
 
@@ -489,12 +500,21 @@ public class ListCommittee extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+                            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         resetHelperText();
         if (jLabel1.getText().equals("Danh sách hội đồng")) {
             String idCommittee = this.idCommittee.getText();
             String president = this.president.getText();
             String comment = this.comment.getText();
-            boolean flag = true;
+
             if (idCommittee.trim().equals("")) {
                 this.idCommittee.setHelperText("Không được bỏ trống mã hội đồng");
                 flag = false;
@@ -548,7 +568,6 @@ public class ListCommittee extends javax.swing.JPanel {
         } else {
             String idCommittee1 = this.idCommittee.getText();
             String idTeacher = this.members.getText();
-            boolean flag = true;
             if (idCommittee1.trim().equals("")) {
                 this.idCommittee.setHelperText("Không được bỏ trống mã hội đồng");
                 flag = false;
@@ -597,11 +616,20 @@ public class ListCommittee extends javax.swing.JPanel {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         resetHelperText();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+                            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         if (jLabel1.getText().equals("Danh sách hội đồng")) {
             String idCommittee = this.idCommittee.getText();
             String president = this.president.getText();
             String comment = this.comment.getText();
-            boolean flag = true;
+
             if (idCommittee.trim().equals("")) {
                 this.idCommittee.setHelperText("Không được bỏ trống mã hội đồng");
                 flag = false;
@@ -654,7 +682,6 @@ public class ListCommittee extends javax.swing.JPanel {
         } else {
             String idCommittee1 = this.idCommittee.getText();
             String idTeacher = this.members.getText();
-            boolean flag = true;
             if (idCommittee1.trim().equals("")) {
                 this.idCommittee.setHelperText("Không được bỏ trống mã hội đồng");
                 flag = false;

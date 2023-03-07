@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 
-public class MenuAdmin extends javax.swing.JPanel {
+public class MenuStudent extends javax.swing.JPanel {
 
     private EventMenuSelected event;
 
@@ -21,7 +21,7 @@ public class MenuAdmin extends javax.swing.JPanel {
         listMenu1.addEventMenuSelected(event);
     }
 
-    public MenuAdmin() {
+    public MenuStudent() {
         initComponents();
         setOpaque(false);
         listMenu1.setOpaque(false);
@@ -35,16 +35,12 @@ public class MenuAdmin extends javax.swing.JPanel {
         listMenu1.addItem(new ModelMenu("3", "Danh sách hệ đào tạo", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("4", "Danh sách khoá đào tạo", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("6", "Danh sách lớp", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("7", "Danh sách tài khoản", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("8", "Danh sách đề tài", ModelMenu.MenuType.MENU));
-//        listMenu1.addItem(new ModelMenu("9", "Danh sách phân công", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("9", "Danh sách hội đồng", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("9", "Danh sách khoa", ModelMenu.MenuType.MENU));
-
         listMenu1.addItem(new ModelMenu("", " ", ModelMenu.MenuType.EMPTY));
 
         listMenu1.addItem(new ModelMenu("", "Cá nhân", ModelMenu.MenuType.TITLE));
-        listMenu1.addItem(new ModelMenu("10", "Profile", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("10", "Đổi mật khẩu", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("10", "Logout", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("close", "Exit", ModelMenu.MenuType.MENU));

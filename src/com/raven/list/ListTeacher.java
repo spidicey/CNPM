@@ -22,8 +22,11 @@ import raven.cell.TableFillEvent;
 
 public class ListTeacher extends javax.swing.JPanel {
 
-    public ListTeacher() {
+    private int role;
+
+    public ListTeacher(int role) {
         initComponents();
+        this.role = role;
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
@@ -317,6 +320,15 @@ public class ListTeacher extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String selectedValue = tblTeacher.getModel().getValueAt(tblTeacher.getSelectedRow(), 0).toString();
         String sql = """
                      BEGIN transaction
@@ -346,6 +358,16 @@ public class ListTeacher extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
+
         resetHelperText();
         String idTeacher = this.idTeacher.getText();
         String nameTeacher = this.teacherName.getText();
@@ -354,7 +376,6 @@ public class ListTeacher extends javax.swing.JPanel {
         String idDepartment = (String) this.idDepartment.getSelectedItem();
         String academic = this.academic.getText();
         String position = this.position.getText();
-        boolean flag = true;
         System.out.println(idTeacher + " " + nameTeacher);
         if (idTeacher.trim().equals("")) {
             this.idTeacher.setHelperText("Không được bỏ trống mã giảng viên");
@@ -420,6 +441,15 @@ public class ListTeacher extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         resetHelperText();
         String idTeacher = this.idTeacher.getText();
         String nameTeacher = this.teacherName.getText();
@@ -428,7 +458,7 @@ public class ListTeacher extends javax.swing.JPanel {
         String idDepartment = (String) this.idDepartment.getSelectedItem();
         String academic = this.academic.getText();
         String position = this.position.getText();
-        boolean flag = true;
+
         System.out.println(idTeacher + " " + nameTeacher);
         if (idTeacher.trim().equals("")) {
             this.idTeacher.setHelperText("Không được bỏ trống mã giảng viên");

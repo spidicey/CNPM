@@ -22,7 +22,10 @@ import raven.cell.TableFillEvent;
 
 public class ListDepartment extends javax.swing.JPanel {
 
-    public ListDepartment() {
+    private int role;
+
+    public ListDepartment(int role) {
+        this.role = role;
         initComponents();
         TableFillEvent event = new TableFillEvent() {
             @Override
@@ -274,8 +277,16 @@ public class ListDepartment extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        String selectedValue = tblDepartment.getModel().getValueAt(tblDepartment.getSelectedRow(), 0).toString();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
 
+        }
+        if (!flag) {
+            return;
+        }
+        String selectedValue = tblDepartment.getModel().getValueAt(tblDepartment.getSelectedRow(), 0).toString();
         System.out.println(selectedValue);
         String sql = "BEGIN transaction\n"
                 + "DELETE FROM KHOA WHERE IDKhoa=?\n"
@@ -304,11 +315,20 @@ public class ListDepartment extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         resetHelperText();
         String idDepartment = this.idDepartment.getText();
         String nameDepartment = this.nameDepartment.getText();
         String president = this.president.getText();
-        boolean flag = true;
+
         if (idDepartment.trim().equals("")) {
             this.idDepartment.setHelperText("Không được bỏ trống mã khoa");
             flag = false;
@@ -356,11 +376,20 @@ public class ListDepartment extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         resetHelperText();
         String idDepartment = this.idDepartment.getText();
         String nameDepartment = this.nameDepartment.getText();
         String president = this.president.getText();
-        boolean flag = true;
+
         if (idDepartment.trim().equals("")) {
             this.idDepartment.setHelperText("Không được bỏ trống mã khoa");
             flag = false;

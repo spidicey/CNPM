@@ -17,6 +17,10 @@ import com.raven.list.ListStudent;
 import com.raven.list.ListSubject;
 import com.raven.list.ListTypeTrainning;
 import com.raven.login.Login;
+import com.raven.login.changePassword;
+import com.raven.model.Account;
+import com.raven.profile.profileStudent;
+import com.raven.profile.profileTeacher;
 import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -33,9 +37,14 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     private JFrame fram;
+    private Account acc;
 
     public void setFram(JFrame fram) {
         this.fram = fram;
+    }
+
+    public Account getAcc() {
+        return acc;
     }
 
     public Main() {
@@ -50,49 +59,66 @@ public class Main extends javax.swing.JFrame {
             public void selected(int index) {
                 switch (index) {
                     case 1:
-                        setForm(new ListTeacher());
+                        setForm(new ListTeacher(acc.getRole()));
                         System.out.println(index);
                         break;
                     case 2:
-                        setForm(new ListStudent());
+                        setForm(new ListStudent(acc.getRole()));
                         System.out.println(index);
                         break;
                     case 3:
-                        setForm(new ListTypeTrainning());
+                        setForm(new ListTypeTrainning(acc.getRole()));
                         System.out.println(index);
                         break;
 
                     case 4:
-                        setForm(new ListSession());
+                        setForm(new ListSession(acc.getRole()));
                         System.out.println(index);
                         break;
 
                     case 5:
-                        setForm(new ListClassName());
+                        setForm(new ListClassName(acc.getRole()));
                         System.out.println(index);
                         break;
                     case 6:
-                        setForm(new ListAccount());
+                        if (acc.getRole() > 1) {
+                            JOptionPane.showMessageDialog(fram, "Không có quyền");
+                            break;
+                        }
+                        setForm(new ListAccount(acc.getRole()));
                         System.out.println(index);
                         break;
                     case 7:
-                        setForm(new ListSubject(fram));
+                        setForm(new ListSubject(fram, acc.getRole()));
                         System.out.println(index);
                         break;
+//                    case 8:
+//                        setForm(new ListAssignment());
+//                        System.out.println(index);
+//                        break;
                     case 8:
-                        setForm(new ListAssignment());
+                        setForm(new ListCommittee(fram, acc.getRole()));
                         System.out.println(index);
                         break;
                     case 9:
-                        setForm(new ListCommittee(fram));
+                        setForm(new ListDepartment(acc.getRole()));
                         System.out.println(index);
                         break;
-                    case 10:
-                        setForm(new ListDepartment());
-                        System.out.println(index);
+
+                    case 12:
+                        if (acc.getRole() == 2) {
+                            setForm(new profileTeacher(acc));
+                        } else if (acc.getRole() == 3) {
+                            setForm(new profileStudent(acc));
+                        }
                         break;
                     case 13:
-                        int responeLogin = JOptionPane.showConfirmDialog(fram, "Bạn có chắc chứ?", "Quye về đăng nhâpk", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        setForm(new changePassword(acc));
+                        System.out.println(index);
+                        break;
+
+                    case 14:
+                        int responeLogin = JOptionPane.showConfirmDialog(fram, "Bạn có chắc chứ?", "Quye về đăng nhập", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (responeLogin == JOptionPane.YES_OPTION) {
                             Login login = new Login();
                             login.setVisible(true);
@@ -102,7 +128,7 @@ public class Main extends javax.swing.JFrame {
                             break;
                         }
 
-                    case 14:
+                    case 15:
                         System.out.println(index);
                         setFram(fram);
                         int responeExit = JOptionPane.showConfirmDialog(fram, "Bạn có chắc muốn thoát không?", "Thoát", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -117,7 +143,7 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         });
-        setForm(new ListTeacher());
+//        setForm(new ListTeacher(acc.getRole()));
     }
 
     private void setForm(JComponent component) {
@@ -125,6 +151,10 @@ public class Main extends javax.swing.JFrame {
         mainPanel.add(component);
         mainPanel.repaint();
         mainPanel.revalidate();
+    }
+
+    public void setAcc(Account acc) {
+        this.acc = acc;
     }
 
     /**

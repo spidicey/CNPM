@@ -2,6 +2,7 @@ package com.raven.view;
 
 import com.raven.conection.ConnectDatabase;
 import com.raven.main.Main;
+import com.raven.model.Account;
 import com.raven.model.ModelUser;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,6 +40,9 @@ public class PanelSlide extends javax.swing.JLayeredPane {
     private Thread th;
     private MigLayout layout;
     private JFrame fram;
+    private int role;
+    private String userName;
+    private String password;
 
     public void setFram(JFrame fram) {
         this.fram = fram;
@@ -106,9 +110,11 @@ public class PanelSlide extends javax.swing.JLayeredPane {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Main main = new Main();
-//                main.setData(loading.getData());
+//                    System.err.println(loading.getAcc());
+                main.setAcc(loading.getAcc());
+                System.out.println(main.getAcc());
                 main.setVisible(true);
-                //  Close login form
+
                 fram.dispose();
             }
         });
@@ -138,10 +144,17 @@ public class PanelSlide extends javax.swing.JLayeredPane {
                     ResultSet r = p.executeQuery();
                     if (r.next()) {
                         String userName = r.getString("UserName");
-                        int id = r.getInt("IDQuyen");
+                        String password = r.getString("Password");
+
+                        role = r.getInt("IDQuyen");
+
                         Icon profile;
                         profile = new ImageIcon(getClass().getResource("/com/raven/icon/user.png"));
                         ModelUser data = new ModelUser(23, userName, profile);
+                        Account acc = new Account(userName, password, role);
+                        System.err.println(acc);
+                        loading.setAcc(acc);
+                        System.err.println(loading.getAcc());
                         loading.doneLogin(data);
                     } else {
                         loading.showError("UserName or Password Incorrect");
@@ -154,7 +167,7 @@ public class PanelSlide extends javax.swing.JLayeredPane {
                 } catch (Exception e) {
                     loading.showError("Error Server");
                 }
-                
+
             }
 
         });

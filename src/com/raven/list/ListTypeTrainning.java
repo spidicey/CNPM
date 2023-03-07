@@ -21,10 +21,11 @@ import raven.cell.TableFillEditor;
 import raven.cell.TableFillEvent;
 
 public class ListTypeTrainning extends javax.swing.JPanel {
-
-    public ListTypeTrainning() {
+    private int role;
+    public ListTypeTrainning(int role) {
         initComponents();
         //  add row table
+        this.role=role;
         TableFillEvent event = new TableFillEvent() {
             @Override
             public void fill(int row) {
@@ -261,7 +262,15 @@ public class ListTypeTrainning extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         String selectedValue = tblTypeTrainning.getModel().getValueAt(tblTypeTrainning.getSelectedRow(), 0).toString();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
 
+        }
+        if (!flag) {
+            return;
+        }
         System.out.println(selectedValue);
         String sql = "BEGIN transaction\n"
                 + "DELETE FROM HE_DAO_TAO WHERE IDHeDaoTao=?\n"
@@ -295,9 +304,18 @@ public class ListTypeTrainning extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         resetHelperText();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String idTypeTrainning = this.idTypeTrainning.getText();
         String nameTypeTrainning = this.nameTypeTrainning.getText();
-        boolean flag = true;
+        
         if (idTypeTrainning.trim().equals("")) {
             this.idTypeTrainning.setHelperText("Không được bỏ trống mã hệ đào tạo");
             flag = false;
@@ -343,9 +361,18 @@ public class ListTypeTrainning extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         resetHelperText();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String idTypeTrainning = this.idTypeTrainning.getText();
         String nameTypeTrainning = this.nameTypeTrainning.getText();
-        boolean flag = true;
+        
         if (idTypeTrainning.trim().equals("")) {
             this.idTypeTrainning.setHelperText("Không được bỏ trống mã hệ đào tạo");
             flag = false;

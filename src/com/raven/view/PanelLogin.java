@@ -18,18 +18,18 @@ public class PanelLogin extends javax.swing.JPanel {
         txtPass = new com.raven.swing.PasswordField();
         cmd = new com.raven.swing.Button();
 
-        txtUser.setLabelText("User Name");
+        txtUser.setLabelText("Tên đăng nhập");
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(79, 79, 79));
-        jLabel1.setText("Sign In");
+        jLabel1.setText("Đăng Nhập");
 
-        txtPass.setLabelText("Password");
+        txtPass.setLabelText("Mật khẩu");
 
         cmd.setBackground(new java.awt.Color(25, 182, 247));
         cmd.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         cmd.setForeground(new java.awt.Color(255, 255, 255));
-        cmd.setText("Login");
+        cmd.setText("Đăng nhập");
         cmd.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         cmd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,7 +48,7 @@ public class PanelLogin extends javax.swing.JPanel {
                     .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 192, Short.MAX_VALUE))
+                        .addGap(0, 132, Short.MAX_VALUE))
                     .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );

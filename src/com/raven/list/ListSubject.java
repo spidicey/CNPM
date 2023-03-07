@@ -4,16 +4,13 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.raven.DAO.SubjectDAO;
-import com.raven.DAO.TeacherDAO;
 import com.raven.conection.ConnectDatabase;
 import com.raven.model.Subject;
-import com.raven.model.Teacher;
 import com.raven.swing.ScrollBar;
 import com.raven.view.test;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Connection;
@@ -36,8 +33,6 @@ import java.io.FileOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import javax.swing.table.TableModel;
-import raven.cell.TableActionCellEditor;
-import raven.cell.TableActionCellRender;
 import raven.cell.TableFillCellRender;
 import raven.cell.TableFillEditor;
 import raven.cell.TableFillEvent;
@@ -45,16 +40,18 @@ import raven.cell.TableFillEvent;
 public class ListSubject extends JPanel {
 
     private JFrame parent;
+    private int role;
 
     public void setFram(JFrame a) {
         this.parent = a;
     }
 
-    public ListSubject(JFrame parent) {
+    public ListSubject(JFrame parent, int role) {
         initComponents();
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
+        this.role = role;
         setFram(parent);
         TableFillEvent event = new TableFillEvent() {
             @Override
@@ -502,7 +499,7 @@ public class ListSubject extends JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(175, 175, 175)
-                                        .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(panel)
                                         .addGap(253, 253, 253))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(86, 86, 86)
@@ -552,6 +549,15 @@ public class ListSubject extends JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         resetHelperText();
+        boolean flag = true;
+        if (this.role > 2) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String selectedValue = tblSubject.getModel().getValueAt(tblSubject.getSelectedRow(), 0).toString();
         System.out.println(selectedValue);
         String sql = "BEGIN transaction\n"
@@ -581,13 +587,22 @@ public class ListSubject extends JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        boolean flag = true;
+        if (this.role > 2) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String idSubject = this.idSubject.getText();
         String nameSubject = this.nameSubject.getText();
         String idStudent = this.idStudent.getText();
         String idInsTeacher = this.idInsTeacher.getText();
         String idThesisTeacher = this.idThesisTeacher.getText();
         String idCommittee = this.idCommittee.getText();
-        boolean flag = true;
+        
         if (idSubject.trim().equals("")) {
             this.idSubject.setHelperText("Không được bỏ trống mã đề tài");
             flag = false;
@@ -662,13 +677,21 @@ public class ListSubject extends JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        boolean flag = true;
+        if (this.role > 2) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String idSubject = this.idSubject.getText();
         String nameSubject = this.nameSubject.getText();
         String idStudent = this.idStudent.getText();
         String idInsTeacher = this.idInsTeacher.getText();
         String idThesisTeacher = this.idThesisTeacher.getText();
         String idCommittee = this.idCommittee.getText();
-        boolean flag = true;
         if (idSubject.trim().equals("")) {
             this.idSubject.setHelperText("Không được bỏ trống mã đề tài");
             flag = false;

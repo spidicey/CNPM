@@ -21,10 +21,10 @@ import raven.cell.TableFillEditor;
 import raven.cell.TableFillEvent;
 
 public class ListAccount extends javax.swing.JPanel {
-
-    public ListAccount() {
+    private int roleAcc;
+    public ListAccount(int rolepr) {
         initComponents();
-
+        this.roleAcc=rolepr;
         TableFillEvent event = new TableFillEvent() {
             @Override
             public void fill(int row) {
@@ -269,6 +269,9 @@ public class ListAccount extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        if(this.roleAcc>1){
+            return;
+        }
         String selectedValue = tblAccount.getModel().getValueAt(tblAccount.getSelectedRow(), 0).toString();
 
         System.out.println(selectedValue);
@@ -300,6 +303,9 @@ public class ListAccount extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         resetHelperText();
+        if(this.roleAcc>1){
+            return;
+        }
         String userName = this.userName.getText();
         String password = this.password.getText();
         boolean flag = true;
@@ -357,6 +363,9 @@ public class ListAccount extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         resetHelperText();
+        if(this.roleAcc>1){
+            return;
+        }
         String userName = this.userName.getText();
         String password = this.password.getText();
         boolean flag = true;

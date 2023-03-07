@@ -22,8 +22,11 @@ import raven.cell.TableFillEvent;
 
 public class ListSession extends javax.swing.JPanel {
 
-    public ListSession() {
+    private int role;
+
+    public ListSession(int role) {
         initComponents();
+        this.role = role;
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
@@ -271,6 +274,15 @@ public class ListSession extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String selectedValue = tblSession.getModel().getValueAt(tblSession.getSelectedRow(), 0).toString();
 
         System.out.println(selectedValue);
@@ -302,10 +314,19 @@ public class ListSession extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         resetHelperText();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String idSession = this.idSession.getText();
         String session = this.session.getText();
         String note = this.note.getText();
-        boolean flag = true;
+
         if (idSession.trim().equals("")) {
             this.idSession.setHelperText("Không được bỏ trống mã khoá");
             flag = false;
@@ -355,11 +376,19 @@ public class ListSession extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateActionPerformed
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         resetHelperText();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
 
+        }
+        if (!flag) {
+            return;
+        }
         String idSession = this.idSession.getText();
         String session = this.session.getText();
         String note = this.note.getText();
-        boolean flag = true;
+
         if (idSession.trim().equals("")) {
             this.idSession.setHelperText("Không được bỏ trống mã khoá");
             flag = false;

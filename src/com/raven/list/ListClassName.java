@@ -24,8 +24,11 @@ import raven.cell.TableFillEvent;
 
 public class ListClassName extends javax.swing.JPanel {
 
-    public ListClassName() {
+    private int role;
+
+    public ListClassName(int role) {
         initComponents();
+        this.role = role;
         TableFillEvent event = new TableFillEvent() {
             @Override
             public void fill(int row) {
@@ -311,8 +314,16 @@ public class ListClassName extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         // TODO add your handling code here:
-        String selectedValue = tblClassName.getModel().getValueAt(tblClassName.getSelectedRow(), 0).toString();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
 
+        }
+        if (!flag) {
+            return;
+        }
+        String selectedValue = tblClassName.getModel().getValueAt(tblClassName.getSelectedRow(), 0).toString();
         System.out.println(selectedValue);
         String sql = "BEGIN transaction\n"
                 + "DELETE FROM LOP WHERE IDLop=?\n"
@@ -341,13 +352,23 @@ public class ListClassName extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        resetHelperText();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String idClassName = this.idClassName.getText();
         String className = this.className.getText();
         String attendants = this.attendants.getText();
         String idDepartment = this.department.getText();
         String session = this.Session.getText();
         String typeTrainning = this.typeTrainning.getText();
-        boolean flag = true;
+
         System.out.println(idClassName + " " + className);
         if (idClassName.trim().equals("")) {
             this.idClassName.setHelperText("Không được bỏ trống mã lớp");
@@ -417,13 +438,22 @@ public class ListClassName extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         resetHelperText();
+        boolean flag = true;
+        if (this.role > 1) {
+            JOptionPane.showMessageDialog(this, "Không có quyền");
+            flag = false;
+
+        }
+        if (!flag) {
+            return;
+        }
         String idClassName = this.idClassName.getText();
         String className = this.className.getText();
         String attendants = this.attendants.getText();
         String idDepartment = this.department.getText();
         String session = this.Session.getText();
         String typeTrainning = this.typeTrainning.getText();
-        boolean flag = true;
+
         System.out.println(idClassName + " " + className);
         if (idClassName.trim().equals("")) {
             this.idClassName.setHelperText("Không được bỏ trống mã lớp");
