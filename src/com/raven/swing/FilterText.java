@@ -9,13 +9,13 @@ import java.awt.RenderingHints;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class SearchText extends JTextField {
+public class FilterText extends JTextField {
 
-    public SearchText() {
+    public FilterText() {
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setSelectionColor(new Color(220, 204, 182));
     }
-    private final String hint = "Tìm kiếm";
+    private final String hint = "Điểm sàn";
 
     @Override
     public void paint(Graphics g) {

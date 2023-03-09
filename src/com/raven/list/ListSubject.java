@@ -5,10 +5,13 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.raven.DAO.SubjectDAO;
 import com.raven.conection.ConnectDatabase;
+import com.raven.model.Account;
 import com.raven.model.Subject;
 import com.raven.swing.ScrollBar;
 import com.raven.view.test;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -46,12 +49,36 @@ public class ListSubject extends JPanel {
         this.parent = a;
     }
 
-    public ListSubject(JFrame parent, int role) {
+    public ListSubject(JFrame parent, Account acc) {
         initComponents();
 //        card2.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")), "Total Profit", "$15000", "Increased by 25%"));
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
-        this.role = role;
+        thesisMark.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    e.consume();
+                }
+            }
+        });
+        insMark.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    e.consume();
+                }
+            }
+        });
+        committeeMark.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    e.consume();
+                }
+            }
+        });
+        this.role = acc.getRole();
         setFram(parent);
         TableFillEvent event = new TableFillEvent() {
             @Override
@@ -105,6 +132,35 @@ public class ListSubject extends JPanel {
             @Override
             public void download(int row) {
                 String selectedValue = tblSubject.getModel().getValueAt(tblSubject.getSelectedRow(), 0).toString();
+                Boolean flag = true;
+                if (acc.getRole() > 2) {
+                    String nameSql = """
+                               SELECT DE_TAI.IDSinhVien from DE_TAI 
+                               WHERE DE_TAI.TenDeTai=?""";
+                    String idStudent = "";
+                    try {
+                        ConnectDatabase myConnection = new ConnectDatabase();
+                        Connection conn = myConnection.openConnection();
+                        PreparedStatement p = conn.prepareStatement(nameSql);
+                        p.setString(1, selectedValue);
+                        ResultSet r = p.executeQuery();
+                        if (r.next()) {
+                            idStudent = r.getString(1);
+                            System.out.println(idStudent);
+                            System.out.println(acc.getUserName());
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (!acc.getUserName().equals(idStudent)) {
+                        JOptionPane.showMessageDialog(parent, "Chọn đúng đề tài của mình để tải xuống");
+                        flag = false;
+                    }
+                    if (!flag) {
+                        return;
+                    }
+                }
                 JnaFileChooser jnaCh = new JnaFileChooser();
                 boolean save = jnaCh.showSaveDialog(parent);
                 jnaCh.addFilter("All Files", "*");
@@ -147,8 +203,39 @@ public class ListSubject extends JPanel {
 
             @Override
             public void upload(int row) {
+                Boolean flag = true;
+                if (acc.getRole() < 3) {
+                    JOptionPane.showMessageDialog(parent, "Chỉ có sinh viên mới được phép nộp đề tài");
+                    flag = false;
+                }
+                if (!flag) {
+                    return;
+                }
                 String selectedValue = tblSubject.getModel().getValueAt(tblSubject.getSelectedRow(), 0).toString();
-                System.out.println(selectedValue);
+//                System.out.println(selectedValue);
+                String nameSql = """
+                               SELECT DE_TAI.IDSinhVien from DE_TAI 
+                               WHERE DE_TAI.TenDeTai=?""";
+                String idStudent = "";
+                try {
+                    ConnectDatabase myConnection = new ConnectDatabase();
+                    Connection conn = myConnection.openConnection();
+                    PreparedStatement p = conn.prepareStatement(nameSql);
+                    p.setString(1, selectedValue);
+                    ResultSet r = p.executeQuery();
+                    if (r.next()) {
+                        idStudent = r.getString(1);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (!acc.getUserName().equals(idStudent)) {
+                    JOptionPane.showMessageDialog(parent, "Chọn đúng đề tài của mình để tải lên");
+                    flag = false;
+                }
+                if (!flag) {
+                    return;
+                }
                 JnaFileChooser jnaCh = new JnaFileChooser();
                 boolean save = jnaCh.showOpenDialog(parent);
                 if (save) {
@@ -179,6 +266,35 @@ public class ListSubject extends JPanel {
             @Override
             public void download(int row) {
                 String selectedValue = tblSubject.getModel().getValueAt(tblSubject.getSelectedRow(), 0).toString();
+                Boolean flag = true;
+                if (acc.getRole() > 2) {
+                    String nameSql = """
+                               SELECT DE_TAI.IDSinhVien from DE_TAI 
+                               WHERE DE_TAI.TenDeTai=?""";
+                    String idStudent = "";
+                    try {
+                        ConnectDatabase myConnection = new ConnectDatabase();
+                        Connection conn = myConnection.openConnection();
+                        PreparedStatement p = conn.prepareStatement(nameSql);
+                        p.setString(1, selectedValue);
+                        ResultSet r = p.executeQuery();
+                        if (r.next()) {
+                            idStudent = r.getString(1);
+                            System.out.println(idStudent);
+                            System.out.println(acc.getUserName());
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (!acc.getUserName().equals(idStudent)) {
+                        JOptionPane.showMessageDialog(parent, "Chọn đúng đề tài của mình để tải xuống");
+                        flag = false;
+                    }
+                    if (!flag) {
+                        return;
+                    }
+                }
                 JnaFileChooser jnaCh = new JnaFileChooser();
                 boolean save = jnaCh.showSaveDialog(parent);
                 jnaCh.addFilter("All Files", "*");
@@ -220,8 +336,40 @@ public class ListSubject extends JPanel {
 
             @Override
             public void upload(int row) {
+                Boolean flag = true;
+                if (acc.getRole() < 3) {
+                    JOptionPane.showMessageDialog(parent, "Chỉ có sinh viên mới được phép nộp đề tài");
+                    flag = false;
+                }
+                if (!flag) {
+                    return;
+                }
                 String selectedValue = tblSubject.getModel().getValueAt(tblSubject.getSelectedRow(), 0).toString();
                 System.out.println(selectedValue);
+//                System.out.println(selectedValue);
+                String nameSql = """
+                               SELECT DE_TAI.IDSinhVien from DE_TAI 
+                               WHERE DE_TAI.TenDeTai=?""";
+                String idStudent = "";
+                try {
+                    ConnectDatabase myConnection = new ConnectDatabase();
+                    Connection conn = myConnection.openConnection();
+                    PreparedStatement p = conn.prepareStatement(nameSql);
+                    p.setString(1, selectedValue);
+                    ResultSet r = p.executeQuery();
+                    if (r.next()) {
+                        idStudent = r.getString(1);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (!acc.getUserName().equals(idStudent)) {
+                    JOptionPane.showMessageDialog(parent, "Chọn đúng đề tài của mình để tải lêns");
+                    flag = false;
+                }
+                if (!flag) {
+                    return;
+                }
                 JnaFileChooser jnaCh = new JnaFileChooser();
                 boolean save = jnaCh.showOpenDialog(parent);
                 if (save) {
@@ -285,7 +433,6 @@ public class ListSubject extends JPanel {
         insMark = new com.raven.swing.TextField();
         idInsTeacher = new com.raven.swing.TextField();
         nameSubject = new com.raven.swing.TextField();
-        thesisMark = new com.raven.swing.TextField();
         idStudent = new com.raven.swing.TextField();
         btnSearch = new com.raven.swing.Button();
         btnReset = new com.raven.swing.Button();
@@ -293,6 +440,8 @@ public class ListSubject extends JPanel {
         idThesisTeacher = new com.raven.swing.TextField();
         idCommittee = new com.raven.swing.TextField();
         committeeMark = new com.raven.swing.TextField();
+        thesisMark = new com.raven.swing.TextField();
+        filter1 = new com.raven.view.Filter();
 
         setBackground(new java.awt.Color(204, 255, 255));
 
@@ -400,13 +549,6 @@ public class ListSubject extends JPanel {
             }
         });
 
-        thesisMark.setLabelText("Điểm phản biện");
-        thesisMark.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                thesisMarkActionPerformed(evt);
-            }
-        });
-
         idStudent.setLabelText("Mã sinh viên");
         idStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -462,6 +604,13 @@ public class ListSubject extends JPanel {
             }
         });
 
+        thesisMark.setLabelText("Điểm phản biện");
+        thesisMark.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thesisMarkActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -479,35 +628,36 @@ public class ListSubject extends JPanel {
                             .addComponent(idSubject, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(110, 110, 110)
+                                        .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                                        .addGap(253, 253, 253))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(idThesisTeacher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(nameSubject, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(thesisMark, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(133, 133, 133)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(idStudent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(idCommittee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(committeeMark, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(filter1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(idThesisTeacher, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nameSubject, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                    .addComponent(thesisMark, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(175, 175, 175)
-                                        .addComponent(panel)
-                                        .addGap(253, 253, 253))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(86, 86, 86)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(idCommittee, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(idStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(committeeMark, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))))
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -515,30 +665,35 @@ public class ListSubject extends JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(1, 1, 1)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idInsTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idThesisTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idCommittee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(thesisMark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(insMark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(committeeMark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(header1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nameSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(idInsTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idThesisTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idCommittee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(insMark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thesisMark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(committeeMark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(header1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(filter1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -602,7 +757,7 @@ public class ListSubject extends JPanel {
         String idInsTeacher = this.idInsTeacher.getText();
         String idThesisTeacher = this.idThesisTeacher.getText();
         String idCommittee = this.idCommittee.getText();
-        
+
         if (idSubject.trim().equals("")) {
             this.idSubject.setHelperText("Không được bỏ trống mã đề tài");
             flag = false;
@@ -716,12 +871,49 @@ public class ListSubject extends JPanel {
             this.idCommittee.setHelperText("Không được bỏ trống mã hội đồng");
             flag = false;
         }
+        if (filter1.getString().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Phải có điểm sàn trước khi thêm ");
+            flag = false;
+        }
+        if (!flag) {
+            return;
+        }
+        float gpa = 0;
+        try {
+            String SQLgpa = "SELECT GPA from SINH_VIEN WHERE IDSinhVien=?";
+            ConnectDatabase myConnection = new ConnectDatabase();
+            Connection conn = myConnection.openConnection();
+            PreparedStatement stmt = conn.prepareStatement(SQLgpa);
+            stmt.setString(1, idStudent);
+            ResultSet r = stmt.executeQuery();
+            if (r.next()) {
+                gpa = r.getFloat(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListSubject.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (gpa < Float.parseFloat(this.filter1.getString())) {
+            JOptionPane.showMessageDialog(this, "Không đủ điều kiện thêm đề tài");
+            flag = false;
+        }
         if (!flag) {
             return;
         }
         float insMark = this.insMark.getText().equals("") ? 0 : Float.parseFloat(this.insMark.getText());
         float thesisMark = this.thesisMark.getText().equals("") ? 0 : Float.parseFloat(this.thesisMark.getText());
         float committeeMark = this.committeeMark.getText().equals("") ? 0 : Float.parseFloat(this.committeeMark.getText());
+        if (insMark < 0 || insMark > 10) {
+            this.insMark.setHelperText("GPA không được < 0 hoặc > 10");
+            return;
+        }
+        if (thesisMark < 0 || insMark > 10) {
+            this.thesisMark.setHelperText("GPA không được < 0 hoặc > 10");
+            return;
+        }
+        if (committeeMark < 0 || insMark > 10) {
+            this.committeeMark.setHelperText("GPA không được < 0 hoặc > 10");
+            return;
+        }
         int responeADD = JOptionPane.showConfirmDialog(this, "Bạn có chắc thêm không??", "Thêm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (responeADD == JOptionPane.YES_OPTION) {
             try {
@@ -774,10 +966,6 @@ public class ListSubject extends JPanel {
     private void nameSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameSubjectActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameSubjectActionPerformed
-
-    private void thesisMarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thesisMarkActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_thesisMarkActionPerformed
 
     private void idStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idStudentActionPerformed
         // TODO add your handling code here:
@@ -836,6 +1024,10 @@ public class ListSubject extends JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_committeeMarkActionPerformed
 
+    private void thesisMarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thesisMarkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_thesisMarkActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.raven.swing.Button btnAdd;
@@ -844,6 +1036,7 @@ public class ListSubject extends JPanel {
     private com.raven.swing.Button btnSearch;
     private com.raven.swing.Button btnUpdate;
     private com.raven.swing.TextField committeeMark;
+    private com.raven.view.Filter filter1;
     private com.raven.view.Header header1;
     private com.raven.swing.TextField idCommittee;
     private com.raven.swing.TextField idInsTeacher;

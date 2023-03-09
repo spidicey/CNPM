@@ -89,7 +89,7 @@ public class Main extends javax.swing.JFrame {
                         System.out.println(index);
                         break;
                     case 7:
-                        setForm(new ListSubject(fram, acc.getRole()));
+                        setForm(new ListSubject(fram, acc));
                         System.out.println(index);
                         break;
 //                    case 8:

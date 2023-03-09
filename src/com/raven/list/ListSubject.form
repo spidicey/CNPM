@@ -35,43 +35,44 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSearch" min="-2" pref="78" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                                      <Component id="panel" pref="195" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="idThesisTeacher" max="32767" attributes="0"/>
+                                          <Component id="nameSubject" max="32767" attributes="0"/>
+                                          <Component id="thesisMark" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="idStudent" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
+                                          <Component id="idCommittee" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
+                                          <Component id="committeeMark" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="filter1" min="-2" pref="197" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnReset" min="-2" pref="78" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnAdd" min="-2" pref="78" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnDelete" min="-2" pref="78" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnUpdate" min="-2" pref="78" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="idThesisTeacher" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="nameSubject" alignment="0" pref="230" max="32767" attributes="0"/>
-                                  <Component id="thesisMark" alignment="0" pref="230" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
-                                      <Component id="panel" max="32767" attributes="0"/>
-                                      <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="idCommittee" min="-2" pref="230" max="-2" attributes="0"/>
-                                          <Component id="idStudent" min="-2" pref="230" max="-2" attributes="0"/>
-                                          <Component id="committeeMark" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
                           </Group>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnUpdate" min="-2" pref="78" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -83,33 +84,41 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
               <Component id="panel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nameSubject" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idSubject" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idStudent" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="idInsTeacher" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idThesisTeacher" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idCommittee" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="thesisMark" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="insMark" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="committeeMark" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="header1" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
-                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="btnAdd" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="btnDelete" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="btnUpdate" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="btnSearch" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="btnReset" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="nameSubject" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="idSubject" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="idStudent" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="idInsTeacher" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="idThesisTeacher" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="idCommittee" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="insMark" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="thesisMark" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="committeeMark" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="51" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="header1" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                              <Component id="btnAdd" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                              <Component id="btnDelete" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                              <Component id="btnUpdate" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                              <Component id="btnSearch" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                              <Component id="btnReset" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="filter1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -349,14 +358,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameSubjectActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.raven.swing.TextField" name="thesisMark">
-      <Properties>
-        <Property name="labelText" type="java.lang.String" value="&#x110;i&#x1ec3;m ph&#x1ea3;n bi&#x1ec7;n"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="thesisMarkActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="com.raven.swing.TextField" name="idStudent">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="M&#xe3; sinh vi&#xea;n"/>
@@ -430,6 +431,16 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="committeeMarkActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="com.raven.swing.TextField" name="thesisMark">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="&#x110;i&#x1ec3;m ph&#x1ea3;n bi&#x1ec7;n"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="thesisMarkActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="com.raven.view.Filter" name="filter1">
     </Component>
   </SubComponents>
 </Form>
