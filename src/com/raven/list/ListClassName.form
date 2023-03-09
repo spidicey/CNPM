@@ -24,19 +24,18 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="department" min="-2" pref="230" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
                   <Component id="panelBorder1" alignment="1" max="32767" attributes="0"/>
-                  <Component id="spTable" alignment="1" pref="944" max="32767" attributes="0"/>
+                  <Component id="spTable" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="idClassName" min="-2" pref="230" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="header1" pref="0" max="32767" attributes="0"/>
-                                  <Component id="Session" pref="230" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="typeTrainning" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="header1" pref="0" max="32767" attributes="0"/>
+                                      <Component id="Session" pref="230" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
@@ -56,7 +55,6 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="className" min="-2" pref="230" max="-2" attributes="0"/>
                                           <Component id="attendants" min="-2" pref="230" max="-2" attributes="0"/>
-                                          <Component id="typeTrainning" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -82,10 +80,7 @@
                   <Component id="attendants" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="department" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="typeTrainning" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="typeTrainning" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="header1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -176,11 +171,10 @@
         <Component class="com.raven.swing.Table" name="tblClassName">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="0">
+              <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="M&#xe3; l&#x1edb;p" type="java.lang.Object"/>
                 <Column editable="false" title="T&#xea;n l&#x1edb;p" type="java.lang.Object"/>
                 <Column editable="false" title="S&#x1ed1; sinh vi&#xea;n" type="java.lang.Object"/>
-                <Column editable="false" title="Khoa" type="java.lang.Object"/>
                 <Column editable="false" title="H&#x1ec7; &#x111;&#xe0;o tao" type="java.lang.Object"/>
                 <Column editable="false" title="Ni&#xea;n kho&#xe1;" type="java.lang.Object"/>
                 <Column editable="true" title="Ch&#x1ec9;nh s&#x1eed;a" type="java.lang.Object"/>
@@ -199,11 +193,6 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="10" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -308,14 +297,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="com.raven.swing.TextField" name="department">
-      <Properties>
-        <Property name="labelText" type="java.lang.String" value="M&#xe3; khoa"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="departmentActionPerformed"/>
       </Events>
     </Component>
     <Component class="com.raven.swing.TextField" name="typeTrainning">

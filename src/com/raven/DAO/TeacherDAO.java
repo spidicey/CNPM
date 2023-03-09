@@ -34,7 +34,7 @@ public class TeacherDAO implements DAOInterface<Teacher> {
                     CallableStatement p = conn.prepareCall(sql);
                     ResultSet rs = p.executeQuery();
                     while (rs.next()) {
-                        list.add(new Teacher(rs.getString("IDGiangVien"),rs.getString("TenGiangVien"),rs.getString("GioiTinh"),rs.getString("Email"),rs.getString("TenKhoa"),rs.getString("HocVi"),rs.getString("ChucVu")));
+                        list.add(new Teacher(rs.getString("IDGiangVien"),rs.getString("TenGiangVien"),rs.getString("GioiTinh"),rs.getString("Email"),rs.getString("HocVi"),rs.getString("ChucVu")));
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();

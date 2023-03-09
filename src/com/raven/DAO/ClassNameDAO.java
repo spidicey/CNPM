@@ -34,7 +34,7 @@ public class ClassNameDAO implements DAOInterface<ClassName> {
                     CallableStatement p = conn.prepareCall(sql);
                     ResultSet rs = p.executeQuery();
                     while (rs.next()) {
-                        list.add(new ClassName(rs.getString("IDLop"), rs.getString("TenLop"), rs.getInt("SoSV"), rs.getString("TenKhoa"), rs.getString("TenHeDaoTao"), rs.getString("NienKhoa")));
+                        list.add(new ClassName(rs.getString("IDLop"), rs.getString("TenLop"), rs.getInt("SoSV"),  rs.getString("TenHeDaoTao"), rs.getString("NienKhoa")));
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();

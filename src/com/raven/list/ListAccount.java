@@ -412,6 +412,8 @@ public class ListAccount extends javax.swing.JPanel {
 
             } catch (SQLException ex) {
                 Logger.getLogger(ListTeacher.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+
             }
         } else {
             return;

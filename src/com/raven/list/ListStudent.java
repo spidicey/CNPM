@@ -5,6 +5,8 @@ import com.raven.conection.ConnectDatabase;
 import com.raven.model.Student;
 import com.raven.swing.ScrollBar;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.beans.Statement;
 import java.sql.*;
 import java.text.DateFormat;
@@ -31,6 +33,14 @@ public class ListStudent extends javax.swing.JPanel {
 //        card3.setData(new Model_Card(new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")), "Unique Visitors", "$300000", "Increased by 70%"));
         //  add row table
         this.role = role;
+        gpa.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    e.consume();
+                }
+            }
+        });
         TableFillEvent event = new TableFillEvent() {
             @Override
             public void fill(int row) {

@@ -83,6 +83,7 @@ public class ListSubject extends JPanel {
         TableFillEvent event = new TableFillEvent() {
             @Override
             public void fill(int row) {
+                resetHelperText();
                 TableModel model = tblSubject.getModel();
                 Object[] rowData = new Object[model.getColumnCount()];
                 for (int i = 0; i < model.getColumnCount(); i++) {

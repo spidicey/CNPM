@@ -19,12 +19,12 @@ public class Teacher {
  
     private String hocVi;
 
-    public Teacher(String idSinhVien, String hoTen, String gioiTinh, String email, String TenKhoa, String hocVi, String chucVu) {
+    public Teacher(String idSinhVien, String hoTen, String gioiTinh, String email, String hocVi, String chucVu) {
         this.idGiangVien = idSinhVien;
         this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
         this.email = email;
-        this.TenKhoa = TenKhoa;
+//        this.TenKhoa = TenKhoa;
         this.hocVi = hocVi;
         this.chucVu = chucVu;
     }

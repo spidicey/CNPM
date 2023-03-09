@@ -30,23 +30,23 @@ public class MenuAdmin extends javax.swing.JPanel {
 
     private void init() {
         listMenu1.addItem(new ModelMenu("", "Danh sách", ModelMenu.MenuType.TITLE));
-        listMenu1.addItem(new ModelMenu("1", "Danh sách giảng viên", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("2", "Danh sách sinh viên", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("3", "Danh sách hệ đào tạo", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("8", "Danh sách giảng viên", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("student", "Danh sách sinh viên", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("type", "Danh sách hệ đào tạo", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("4", "Danh sách khoá đào tạo", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("6", "Danh sách lớp", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("7", "Danh sách tài khoản", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("class", "Danh sách lớp", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("acc", "Danh sách tài khoản", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("8", "Danh sách đề tài", ModelMenu.MenuType.MENU));
 //        listMenu1.addItem(new ModelMenu("9", "Danh sách phân công", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("9", "Danh sách hội đồng", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("9", "Danh sách khoa", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("people", "Danh sách hội đồng", ModelMenu.MenuType.MENU));
+//        listMenu1.addItem(new ModelMenu("9", "Danh sách khoa", ModelMenu.MenuType.MENU));
 
         listMenu1.addItem(new ModelMenu("", " ", ModelMenu.MenuType.EMPTY));
 
         listMenu1.addItem(new ModelMenu("", "Cá nhân", ModelMenu.MenuType.TITLE));
-        listMenu1.addItem(new ModelMenu("10", "Profile", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("10", "Đổi mật khẩu", ModelMenu.MenuType.MENU));
-        listMenu1.addItem(new ModelMenu("10", "Logout", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("profile", "Profile", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("password", "Đổi mật khẩu", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("logout", "Logout", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("close", "Exit", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("", "", ModelMenu.MenuType.EMPTY));
     }

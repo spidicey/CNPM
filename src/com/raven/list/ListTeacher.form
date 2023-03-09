@@ -25,12 +25,15 @@
               <EmptySpace min="-2" pref="650" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="position" min="-2" pref="230" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <Component id="panel" pref="86" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="position" min="-2" pref="230" max="-2" attributes="0"/>
+                          <Component id="sex" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -43,7 +46,6 @@
                           <Component id="header1" alignment="1" pref="0" max="32767" attributes="0"/>
                           <Component id="idTeacher" alignment="1" pref="230" max="32767" attributes="0"/>
                           <Component id="teacherName" alignment="1" pref="230" max="32767" attributes="0"/>
-                          <Component id="sex" alignment="1" pref="230" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSearch" min="-2" pref="78" max="-2" attributes="0"/>
@@ -63,7 +65,6 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="email" min="-2" pref="230" max="-2" attributes="0"/>
                                   <Component id="academic" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
-                                  <Component id="idDepartment" min="-2" pref="230" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -89,14 +90,10 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="teacherName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idDepartment" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="academic" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="sex" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace pref="124" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="header1" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
@@ -234,12 +231,11 @@
         <Component class="com.raven.swing.Table" name="tblTeacher">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="8" rowCount="0">
+              <Table columnCount="7" rowCount="0">
                 <Column editable="false" title="M&#xe3; gi&#x1ea3;ng vi&#xea;n" type="java.lang.Object"/>
                 <Column editable="false" title="T&#xea;n gi&#x1ea3;ng vi&#xea;n" type="java.lang.Object"/>
                 <Column editable="false" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.Object"/>
                 <Column editable="false" title="Email" type="java.lang.Object"/>
-                <Column editable="false" title="Khoa" type="java.lang.Object"/>
                 <Column editable="false" title="H&#x1ecd;c v&#x1ecb;" type="java.lang.Object"/>
                 <Column editable="false" title="Ch&#x1ee9;c v&#x1ee5;" type="java.lang.Object"/>
                 <Column editable="true" title="util" type="java.lang.Object"/>
@@ -263,11 +259,6 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="110" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -342,23 +333,6 @@
           <StringArray count="2">
             <StringItem index="0" value="Nam"/>
             <StringItem index="1" value="N&#x1eef;"/>
-          </StringArray>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="idDepartment">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="ATTT"/>
-            <StringItem index="1" value="CNTT"/>
-            <StringItem index="2" value="DPT"/>
-            <StringItem index="3" value="DT"/>
-            <StringItem index="4" value="VT"/>
           </StringArray>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>

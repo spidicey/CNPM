@@ -67,11 +67,11 @@ public class ClassName {
     public ClassName() {
     }
 
-    public ClassName(String idClass, String className, int attendants, String department, String typeTrainning, String session) {
+    public ClassName(String idClass, String className, int attendants,String typeTrainning, String session) {
         this.idClass = idClass;
         this.className = className;
         this.attendants = attendants;
-        this.department = department;
+//        this.department = department;
         this.typeTrainning = typeTrainning;
         this.session = session;
     }

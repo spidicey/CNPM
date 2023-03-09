@@ -100,24 +100,24 @@ public class Main extends javax.swing.JFrame {
                         setForm(new ListCommittee(fram, acc.getRole()));
                         System.out.println(index);
                         break;
-                    case 9:
-                        setForm(new ListDepartment(acc.getRole()));
-                        System.out.println(index);
-                        break;
+//                    case 9:
+//                        setForm(new ListDepartment(acc.getRole()));
+//                        System.out.println(index);
+//                        break;
 
-                    case 12:
+                    case 11:
                         if (acc.getRole() == 2) {
                             setForm(new profileTeacher(acc));
                         } else if (acc.getRole() == 3) {
                             setForm(new profileStudent(acc));
                         }
                         break;
-                    case 13:
+                    case 12:
                         setForm(new changePassword(acc));
                         System.out.println(index);
                         break;
 
-                    case 14:
+                    case 13:
                         int responeLogin = JOptionPane.showConfirmDialog(fram, "Bạn có chắc chứ?", "Quye về đăng nhập", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (responeLogin == JOptionPane.YES_OPTION) {
                             Login login = new Login();
@@ -128,7 +128,7 @@ public class Main extends javax.swing.JFrame {
                             break;
                         }
 
-                    case 15:
+                    case 14:
                         System.out.println(index);
                         setFram(fram);
                         int responeExit = JOptionPane.showConfirmDialog(fram, "Bạn có chắc muốn thoát không?", "Thoát", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
